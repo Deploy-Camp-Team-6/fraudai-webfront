@@ -1,0 +1,21 @@
+.code-block-container {
+  position: relative;
+  background-color: #2d2d2d;
+  color: #f1f1f1;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow: auto;
+  font-family: 'Courier New', Courier, monospace;
+
+  app-copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+}

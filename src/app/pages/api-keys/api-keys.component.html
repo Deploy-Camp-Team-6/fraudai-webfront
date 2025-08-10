@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>API Keys</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Manage API Keys
+      </ion-card-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="createKey()" fill="solid" color="primary">
+          <ion-icon slot="start" name="add"></ion-icon>
+          Create Key
+        </ion-button>
+      </ion-buttons>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="table-responsive">
+        <table class="key-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Prefix</th>
+              <th>Created</th>
+              <th>Last Used</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let key of apiKeys">
+              <td>{{ key.name }}</td>
+              <td>{{ key.prefix }}</td>
+              <td>{{ key.createdAt | date:'medium' }}</td>
+              <td>{{ key.lastUsed | date:'medium' }}</td>
+              <td>
+                <ion-buttons>
+                  <ion-button (click)="revokeKey(key)" color="danger" fill="clear">
+                    <ion-icon slot="icon-only" name="trash"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

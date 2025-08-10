@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Playground</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Model Selector</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-select label="Select a Model" [value]="selectedModelId" (ionChange)="onModelChange($event)">
+            <ion-select-option *ngFor="let model of availableModels" [value]="model.id">
+              {{ model.name }} ({{ model.version }}) <span *ngIf="model.alias">[{{ model.alias }}]</span>
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Request Body</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <textarea [(ngModel)]="requestBody" rows="10" style="width: 100%;"></textarea>
+      <ion-button expand="block" (click)="runInference()" class="ion-margin-top">Run Inference</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="responseBody">
+    <ion-card-header>
+      <ion-card-title>Response</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <app-code-block [code]="responseBody" language="json"></app-code-block>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
