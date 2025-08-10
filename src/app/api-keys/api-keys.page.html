@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>API Keys</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-input label="New key name" [(ngModel)]="newKeyName"></ion-input>
+    <ion-button slot="end" (click)="createKey()">Create</ion-button>
+  </ion-item>
+
+  <ion-list>
+    <ion-item *ngFor="let key of keys">
+      <ion-label>
+        <h2>{{ key.name }}</h2>
+        <p>{{ key.value }}</p>
+      </ion-label>
+      <ion-button fill="clear" (click)="regenerate(key.id)">Regenerate</ion-button>
+      <ion-button color="danger" fill="clear" (click)="revoke(key.id)">Revoke</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

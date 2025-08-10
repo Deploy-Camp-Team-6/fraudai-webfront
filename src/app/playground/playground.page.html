@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Playground</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-select label="Model" [(ngModel)]="selectedModel">
+      <ion-select-option *ngFor="let m of models" [value]="m.id">{{ m.name }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-textarea label="Input" [(ngModel)]="input"></ion-textarea>
+  </ion-item>
+  <ion-button expand="block" (click)="run()">Run</ion-button>
+  <ion-item *ngIf="output">
+    <ion-textarea label="Output" [value]="output" readonly></ion-textarea>
+  </ion-item>
+</ion-content>

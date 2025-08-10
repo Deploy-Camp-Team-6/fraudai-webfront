@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Usage Metrics</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" *ngIf="metrics">
+  <ion-list>
+    <ion-item>
+      <ion-label>Calls: {{ metrics.calls }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Latency: {{ metrics.latency }} ms</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Success Rate: {{ metrics.successRate }}%</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
