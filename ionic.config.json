@@ -1,0 +1,7 @@
+{
+  "name": "fraudai-webfront",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
