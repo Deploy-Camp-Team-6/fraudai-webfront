@@ -38,4 +38,7 @@
 body {
   background: var(--ion-background-color);
   color: var(--ion-text-color);
+  /* Expose theme hint to the browser so form controls, scrollbars etc. match */
+  color-scheme: light dark;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
