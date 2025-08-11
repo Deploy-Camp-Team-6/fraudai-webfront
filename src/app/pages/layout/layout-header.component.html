@@ -24,7 +24,7 @@
         <ion-icon slot="start" name="key-outline"></ion-icon>
         API Keys
       </ion-button>
-      <ion-toggle (ionChange)="toggleTheme($event)" [checked]="themeService.isDark" aria-label="Toggle dark mode">
+      <ion-toggle (ionChange)="toggleTheme($event)" [checked]="themeService.isDark()" aria-label="Toggle dark mode">
         <ion-icon slot="start" name="sunny-outline"></ion-icon>
         <ion-icon slot="end" name="moon-outline"></ion-icon>
       </ion-toggle>
