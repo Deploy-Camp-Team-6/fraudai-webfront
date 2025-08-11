@@ -1,4 +1,42 @@
-<app-layout-header></app-layout-header>
-<ion-content>
-  <ion-router-outlet></ion-router-outlet>
-</ion-content>
+<ion-menu content-id="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item routerLink="/" routerDirection="root">
+          <ion-icon slot="start" name="home-outline"></ion-icon>
+          <ion-label>Home</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item routerLink="/docs">
+          <ion-icon slot="start" name="document-text-outline"></ion-icon>
+          <ion-label>Docs</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item routerLink="/playground">
+          <ion-icon slot="start" name="flask-outline"></ion-icon>
+          <ion-label>Playground</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item routerLink="/keys">
+          <ion-icon slot="start" name="key-outline"></ion-icon>
+          <ion-label>API Keys</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<div id="main-content">
+  <app-layout-header></app-layout-header>
+  <ion-content>
+    <ion-router-outlet></ion-router-outlet>
+  </ion-content>
+</div>

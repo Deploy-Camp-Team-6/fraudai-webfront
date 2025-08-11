@@ -1,5 +1,17 @@
 import { Component } from '@angular/core';
-import { IonContent, IonRouterOutlet } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonRouterOutlet,
+  IonMenu,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonList,
+  IonItem,
+  IonIcon,
+  IonLabel,
+  IonMenuToggle,
+} from '@ionic/angular/standalone';
 import { LayoutHeaderComponent } from './layout-header.component';
 
 @Component({
@@ -7,7 +19,20 @@ import { LayoutHeaderComponent } from './layout-header.component';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
   standalone: true,
-  imports: [IonContent, IonRouterOutlet, LayoutHeaderComponent],
+  imports: [
+    IonContent,
+    IonRouterOutlet,
+    IonMenu,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonList,
+    IonItem,
+    IonIcon,
+    IonLabel,
+    IonMenuToggle,
+    LayoutHeaderComponent,
+  ],
 })
 export class LayoutPage {}
 

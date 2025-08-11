@@ -7,20 +7,20 @@
     <ion-title>Fraud AI</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button routerLink="/">
+      <ion-button routerLink="/" class="nav-link">
         <ion-icon slot="start" name="home-outline"></ion-icon>
         Home
       </ion-button>
-      <ion-button routerLink="/docs">
+      <ion-button routerLink="/docs" class="nav-link">
         <ion-icon slot="start" name="document-text-outline"></ion-icon>
         Docs
       </ion-button>
-      <ion-button routerLink="/playground">
+      <ion-button routerLink="/playground" class="nav-link">
         <ion-icon slot="start" name="flask-outline"></ion-icon>
         Playground
         <ion-badge *ngIf="apiKeyService.isApiKeyActive$ | async" color="success" style="margin-left: 8px;">API Key Active</ion-badge>
       </ion-button>
-      <ion-button routerLink="/keys" *ngIf="authService.user$ | async">
+      <ion-button routerLink="/keys" *ngIf="authService.user$ | async" class="nav-link">
         <ion-icon slot="start" name="key-outline"></ion-icon>
         API Keys
       </ion-button>
