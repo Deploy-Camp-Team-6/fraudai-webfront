@@ -47,6 +47,24 @@ describe('AuthService', () => {
     });
   });
 
+  it('should sign up a user and store the token', () => {
+    const mockUser: User = { id: '2', email: 'new@example.com', name: 'New User' };
+    const mockResponse: AuthResponse = { user: mockUser, token: 'new-token' };
+
+    service.signUp({ name: 'New User', email: 'new@example.com', password: 'password' }).subscribe(response => {
+      expect(response).toEqual(mockResponse);
+    });
+
+    const req = httpMock.expectOne(`${environment.apiBaseUrl}/v1/auth/sign-up`);
+    expect(req.request.method).toBe('POST');
+    req.flush(mockResponse);
+
+    expect(localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN)).toBe('new-token');
+    service.user$.subscribe(user => {
+      expect(user).toEqual(mockUser);
+    });
+  });
+
   it('should sign out a user and remove the token', () => {
     localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, 'test-token');
     service.signOut();
