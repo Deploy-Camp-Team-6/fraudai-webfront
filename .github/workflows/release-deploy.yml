@@ -1,4 +1,4 @@
-name: CI/CD to Docker Swarm
+name: Release Deploy
 
 on:
   push:
@@ -78,8 +78,8 @@ jobs:
       - name: Prepare stack file with image tag
         run: |
           mkdir -p dist
-          # Replace IMAGE_PLACEHOLDER in deploy/stack.yml with the built image ref
-          sed "s|IMAGE_PLACEHOLDER|${{ steps.meta.outputs.image_ref }}|g" deploy/stack.yml > dist/stack.resolved.yml
+          # Replace IMAGE_PLACEHOLDER in webfront-stack.yml with the built image ref
+          sed "s|\${IMAGE}|${{ steps.meta.outputs.image_ref }}|g" webfront-stack.yml > dist/stack.resolved.yml
 
       - name: Upload resolved stack file
         uses: actions/upload-artifact@v4
@@ -100,11 +100,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: stack-${{ needs.build-and-push.outputs.tag }}
-
-      - name: Add swarm manager to known_hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -p ${{ secrets.SSH_PORT || 22 }} ${{ secrets.SWARM_HOST }} >> ~/.ssh/known_hosts
 
       - name: Copy stack file to manager (/tmp)
         uses: appleboy/scp-action@v0.1.4
