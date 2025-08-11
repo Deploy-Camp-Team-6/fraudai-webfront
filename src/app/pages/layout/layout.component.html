@@ -12,7 +12,7 @@
         <ion-badge *ngIf="apiKeyService.isApiKeyActive$ | async" color="success" style="margin-left: 8px;">API Key Active</ion-badge>
       </ion-button>
       <ion-button routerLink="/keys" *ngIf="authService.user$ | async">API Keys</ion-button>
-      <ion-button *ngIf="!(authService.user$ | async)" routerLink="/login" color="light" shape="round">Login</ion-button>
+      <ion-button *ngIf="(authService.user$ | async) === null" routerLink="/login" color="light" shape="round">Login</ion-button>
       <ion-button *ngIf="authService.user$ | async" (click)="logout()" color="light" shape="round">Logout</ion-button>
     </ion-buttons>
   </ion-toolbar>
