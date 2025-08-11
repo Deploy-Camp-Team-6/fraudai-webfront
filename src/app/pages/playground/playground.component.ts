@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ModelSelectorService } from 'src/app/core/services/model-selector.service';
@@ -19,6 +19,7 @@ import {
   IonButton,
 } from '@ionic/angular/standalone';
 import { CodeBlockComponent } from 'src/app/shared/components/code-block/code-block.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-playground',
@@ -44,22 +45,25 @@ import { CodeBlockComponent } from 'src/app/shared/components/code-block/code-bl
     CodeBlockComponent,
   ],
 })
-export class PlaygroundComponent {
+export class PlaygroundComponent implements OnDestroy {
   public modelSelectorService = inject(ModelSelectorService);
   public availableModels: Model[] = [];
   public selectedModelId: string | null = null;
   public requestBody = '{}';
   public responseBody = '';
+  private sub = new Subscription();
 
   constructor() {
     this.availableModels = this.modelSelectorService.getAvailableModels();
-    this.modelSelectorService.selectedModel$.subscribe(model => {
-      this.selectedModelId = model?.id || null;
-    });
+    this.sub.add(
+      this.modelSelectorService.selectedModel$.subscribe(model => {
+        this.selectedModelId = model?.id || null;
+      }),
+    );
   }
 
-  onModelChange(event: any) {
-    const modelId = event.detail.value;
+  onModelChange(event: CustomEvent) {
+    const modelId = event.detail.value as string;
     const selectedModel = this.availableModels.find(m => m.id === modelId);
     if (selectedModel) {
       this.modelSelectorService.setSelectedModel(selectedModel);
@@ -73,5 +77,9 @@ export class PlaygroundComponent {
       version: this.modelSelectorService.getSelectedModel()?.version,
       fraud_score: Math.random().toFixed(4),
     }, null, 2);
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }
