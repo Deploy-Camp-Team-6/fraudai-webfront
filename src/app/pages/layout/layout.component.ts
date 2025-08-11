@@ -1,46 +1,13 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonButtons,
-  IonButton,
-  IonContent,
-  IonRouterOutlet,
-  IonMenuButton,
-  IonBadge,
-} from '@ionic/angular/standalone';
-import { ApiKeyService } from 'src/app/core/services/api-key.service';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { Component } from '@angular/core';
+import { IonContent, IonRouterOutlet } from '@ionic/angular/standalone';
+import { LayoutHeaderComponent } from './layout-header.component';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonButtons,
-    IonButton,
-    IonContent,
-    IonRouterOutlet,
-    IonMenuButton,
-    IonBadge,
-  ],
+  imports: [IonContent, IonRouterOutlet, LayoutHeaderComponent],
 })
-export class LayoutPage {
-  public apiKeyService = inject(ApiKeyService);
-  public authService = inject(AuthService);
-  private router = inject(Router);
+export class LayoutPage {}
 
-  logout() {
-    this.authService.signOut(false);
-    this.router.navigate(['/']);
-  }
-}

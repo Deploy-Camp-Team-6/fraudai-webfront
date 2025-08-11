@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+:host ::ng-deep ion-toolbar {
+  --padding-start: 16px;
+  --padding-end: 16px;
+}
+
+:host ::ng-deep ion-button {
+  margin: 0 4px;
+  font-weight: 500;
+  text-transform: none;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+:host ::ng-deep ion-title {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+:host ::ng-deep ion-toggle {
+  margin: 0 8px;
+}
