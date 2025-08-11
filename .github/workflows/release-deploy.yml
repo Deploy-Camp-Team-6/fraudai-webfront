@@ -134,7 +134,8 @@ jobs:
             docker stack deploy -c /tmp/stack.resolved.yml "$STACK_NAME" --with-registry-auth
 
             # Health check: wait for service to reach desired replicas
-            SERVICE="${STACK_NAME}_app"
+            SERVICE="${STACK_NAME}_web"
+            echo "Waiting for service $SERVICE to be healthy..."
             for i in {1..30}; do
               RUNNING=$(docker service ps --format '{{.CurrentState}}' "$SERVICE" | grep -c "Running" || true)
               DESIRED=$(docker service inspect --format '{{ index .Spec.Mode.Replicated.Replicas }}' "$SERVICE" 2>/dev/null || echo 0)
@@ -142,6 +143,7 @@ jobs:
                 echo "Service healthy: $RUNNING/$DESIRED replicas running."
                 exit 0
               fi
+              echo "Waiting for service to be ready... ($RUNNING/$DESIRED running)"
               sleep 5
             done
             echo "Service did not reach healthy state in time." >&2
