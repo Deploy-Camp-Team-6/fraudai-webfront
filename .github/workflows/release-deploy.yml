@@ -66,5 +66,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }} \
+            DOMAIN=${{ secrets.DOMAIN }} \
             docker stack deploy -c ${{ secrets.SWARM_TARGET_DIR }}/docker-stack.yml \
               ${{ secrets.SWARM_STACK_NAME }} --with-registry-auth
