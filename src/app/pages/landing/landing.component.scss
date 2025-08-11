@@ -6,6 +6,8 @@ ion-content, .hero {
   display: flex;
   align-items: center;
   padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .hero-text {
@@ -65,5 +67,15 @@ ion-content, .hero {
 
   .hero-image {
     margin-top: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-text h1 {
+    font-size: 4.5rem;
+  }
+
+  .hero-text p {
+    font-size: 1.5rem;
   }
 }
