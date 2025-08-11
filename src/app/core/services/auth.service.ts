@@ -39,6 +39,17 @@ export class AuthService {
     );
   }
 
+  signUp(data: { name: string; email: string; password: string }): Observable<AuthResponse> {
+    if (environment.useMock) {
+      const mockUser: User = { id: '1', email: data.email, name: data.name };
+      const mockResponse: AuthResponse = { user: mockUser, token: 'mock.token.123' };
+      return of(mockResponse).pipe(tap((response) => this.setAuth(response)));
+    }
+    return this.http.post<AuthResponse>(`${environment.apiBaseUrl}/v1/auth/sign-up`, data).pipe(
+      tap((response) => this.setAuth(response))
+    );
+  }
+
   me(): Observable<User | null> {
     const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
     if (!token) {
