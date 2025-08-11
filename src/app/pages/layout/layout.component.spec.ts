@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { LayoutPage } from './layout.component';
 
@@ -10,7 +11,7 @@ describe('LayoutPage', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [LayoutPage, RouterTestingModule],
+        imports: [LayoutPage, RouterTestingModule, HttpClientTestingModule],
       }).compileComponents();
 
       fixture = TestBed.createComponent(LayoutPage);
