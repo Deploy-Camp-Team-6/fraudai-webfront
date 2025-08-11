@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonInput, IonButton, IonSpinner } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -29,6 +30,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class SignInPage implements OnInit {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  private toastService = inject(ToastService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private returnUrl!: string;
@@ -56,7 +58,7 @@ export class SignInPage implements OnInit {
       },
       error: (err) => {
         this.loading = false;
-        // The error interceptor will handle the toast
+        this.toastService.presentError('Sign in failed. Please check your credentials and try again.');
       },
     });
   }
