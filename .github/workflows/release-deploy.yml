@@ -62,7 +62,7 @@ jobs:
           username: ${{ secrets.SWARM_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: docker-stack.yml
-          target: ${{ secrets.SWARM_TARGET_DIR }}
+          target: ${{ secrets.SWARM_TARGET_DIR }}/${{ github.event.repository.name }}-stack.yml
 
       - name: Deploy stack
         uses: appleboy/ssh-action@v0.1.6
@@ -71,7 +71,7 @@ jobs:
           username: ${{ secrets.SWARM_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }} \
+            IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}:${{ env.RELEASE_TAG_LC }} \
             DOMAIN=${{ secrets.DOMAIN }} \
-            docker stack deploy -c ${{ secrets.SWARM_TARGET_DIR }}/docker-stack.yml \
+            docker stack deploy -c ${{ secrets.SWARM_TARGET_DIR }}/${{ github.event.repository.name }}-stack.yml \
               ${{ secrets.SWARM_STACK_NAME }} --with-registry-auth
