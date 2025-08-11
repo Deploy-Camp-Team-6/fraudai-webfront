@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 /*
  * App Global CSS
  * ----------------------------------------------------------------------------
@@ -33,5 +35,19 @@
  */
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+@import "@ionic/angular/css/palettes/dark.class.css";
+/* @import '@ionic/angular/css/palettes/dark.system.css'; */
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+ion-toolbar {
+  --background: var(--ion-color-light);
+  --color: var(--ion-color-dark);
+}
+
+.dark ion-toolbar {
+  --background: var(--ion-color-dark);
+  --color: var(--ion-color-light);
+}

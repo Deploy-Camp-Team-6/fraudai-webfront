@@ -10,10 +10,13 @@ import {
   IonContent,
   IonRouterOutlet,
   IonMenuButton,
-  IonBadge,
+  IonIcon,
 } from '@ionic/angular/standalone';
 import { ApiKeyService } from 'src/app/core/services/api-key.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
+import { addIcons } from 'ionicons';
+import { moon, sunny } from 'ionicons/icons';
 
 @Component({
   selector: 'app-layout',
@@ -31,16 +34,25 @@ import { AuthService } from 'src/app/core/services/auth.service';
     IonContent,
     IonRouterOutlet,
     IonMenuButton,
-    IonBadge,
+    IonIcon,
   ],
 })
 export class LayoutPage {
   public apiKeyService = inject(ApiKeyService);
   public authService = inject(AuthService);
+  public themeService = inject(ThemeService);
   private router = inject(Router);
+
+  constructor() {
+    addIcons({ moon, sunny });
+  }
 
   logout() {
     this.authService.signOut(false);
     this.router.navigate(['/']);
+  }
+
+  toggleTheme() {
+    this.themeService.toggle();
   }
 }
