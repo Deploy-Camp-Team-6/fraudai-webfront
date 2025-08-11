@@ -3,11 +3,10 @@ import { RouterLink } from '@angular/router';
 import {
   IonContent,
   IonButton,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardSubtitle,
-  IonCardContent,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonImg,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -19,11 +18,10 @@ import {
     RouterLink,
     IonContent,
     IonButton,
-    IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardSubtitle,
-    IonCardContent,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonImg,
   ],
 })
 export class LandingPage {}
