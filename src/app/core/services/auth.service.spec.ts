@@ -15,10 +15,10 @@ describe('AuthService', () => {
       imports: [HttpClientTestingModule],
       providers: [AuthService],
     });
-    service = TestBed.inject(AuthService);
     httpMock = TestBed.inject(HttpTestingController);
     localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
     environment.useMock = false; // Ensure we are testing the real service logic
+    service = TestBed.inject(AuthService);
   });
 
   afterEach(() => {
