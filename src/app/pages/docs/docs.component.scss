@@ -1,0 +1,30 @@
+ion-grid {
+  ion-row + ion-row {
+    margin-top: 2rem;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--ion-font-family, inherit);
+    color: var(--ion-color-primary);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  p code {
+    background: var(--ion-color-step-100);
+    color: var(--ion-color-primary);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: var(--ion-font-family-monospace, monospace);
+  }
+
+  ::ng-deep app-code-block .code-block-container {
+    background: var(--ion-color-step-100);
+    color: var(--ion-text-color);
+    border-radius: 8px;
+    font-family: var(--ion-font-family-monospace, monospace);
+  }
+}
+
