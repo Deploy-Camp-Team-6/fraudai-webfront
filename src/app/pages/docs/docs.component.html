@@ -19,7 +19,7 @@
       </p>
 
       <h3>Example Request</h3>
-      <ion-segment [(ngModel)]="selectedLanguage" (ionChange)="selectedLanguage = $event.detail.value">
+      <ion-segment [(ngModel)]="selectedLanguage" (ionChange)="selectedLanguage = ($event.detail.value || 'curl')">
         <ion-segment-button value="curl">cURL</ion-segment-button>
         <ion-segment-button value="fetch">Fetch</ion-segment-button>
         <ion-segment-button value="python">Python</ion-segment-button>
