@@ -1,12 +1,12 @@
 <ion-content class="ion-padding">
-  <div class="ion-text-center" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
-    <ion-card>
+  <div class="auth-container">
+    <ion-card class="auth-card">
       <ion-card-header>
         <ion-card-title>Sign In</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <form [formGroup]="form" (ngSubmit)="signIn()">
-          <ion-list>
+          <ion-list lines="none">
             <ion-item>
               <ion-input label="Email" labelPlacement="floating" formControlName="email" type="email" required></ion-input>
             </ion-item>
