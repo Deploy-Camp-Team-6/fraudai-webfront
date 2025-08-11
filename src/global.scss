@@ -34,3 +34,8 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 @import "@ionic/angular/css/palettes/dark.class.css";
+
+body {
+  background: var(--ion-background-color);
+  color: var(--ion-text-color);
+}
