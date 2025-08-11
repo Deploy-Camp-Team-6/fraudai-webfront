@@ -1,0 +1,28 @@
+<ion-content class="ion-padding">
+  <div class="ion-text-center" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Sign In</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="form" (ngSubmit)="signIn()">
+          <ion-list>
+            <ion-item>
+              <ion-input label="Email" labelPlacement="floating" formControlName="email" type="email" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Password" labelPlacement="floating" formControlName="password" type="password" required></ion-input>
+            </ion-item>
+          </ion-list>
+          <ion-button type="submit" expand="block" [disabled]="form.invalid || loading">
+            <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+            <span *ngIf="!loading">Sign In</span>
+          </ion-button>
+        </form>
+        <p class="ion-text-center">
+          Don't have an account? <a routerLink="/auth/sign-up">Sign Up</a>
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

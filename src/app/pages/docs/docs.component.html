@@ -1,0 +1,36 @@
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        <h1>Documentation</h1>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        Welcome to the Fraud AI API documentation. Here you will find all the information you need to integrate our fraud detection service into your applications.
+      </p>
+      <h2>Getting Started</h2>
+      <p>
+        To get started, you need to obtain an API key from the API Keys page. Once you have your key, you can start making requests to our API endpoints.
+      </p>
+      <h2>API Endpoints</h2>
+      <p>
+        Our API has a single endpoint for fraud detection: <code>POST /api/v1/detect</code>
+      </p>
+
+      <h3>Example Request</h3>
+      <ion-segment [(ngModel)]="selectedLanguage" (ionChange)="selectedLanguage = ($event.detail.value || 'curl')">
+        <ion-segment-button value="curl">cURL</ion-segment-button>
+        <ion-segment-button value="fetch">Fetch</ion-segment-button>
+        <ion-segment-button value="python">Python</ion-segment-button>
+      </ion-segment>
+
+      <div [ngSwitch]="selectedLanguage" class="ion-margin-top">
+        <app-code-block *ngSwitchCase="'curl'" [code]="curlSnippet" language="bash"></app-code-block>
+        <app-code-block *ngSwitchCase="'fetch'" [code]="fetchSnippet" language="javascript"></app-code-block>
+        <app-code-block *ngSwitchCase="'python'" [code]="pythonSnippet" language="python"></app-code-block>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>
