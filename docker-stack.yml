@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  web:
+    image: ${IMAGE}
+    ports:
+      - "80:80"
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+      update_config:
+        order: start-first
