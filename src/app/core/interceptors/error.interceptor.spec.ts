@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { HttpClient, HttpErrorResponse, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { errorInterceptor } from './error.interceptor';
@@ -27,9 +27,9 @@ describe('ErrorInterceptor', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
       providers: [
         provideHttpClient(withInterceptors([errorInterceptor])),
+        provideHttpClientTesting(),
         { provide: AuthService, useValue: authServiceMock },
         { provide: ToastService, useValue: toastServiceMock },
         { provide: Router, useValue: routerMock },

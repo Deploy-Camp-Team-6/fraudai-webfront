@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { LayoutPage } from './layout.component';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { ApiKeyService } from 'src/app/core/services/api-key.service';
 
 describe('LayoutPage', () => {
   let component: LayoutPage;
@@ -8,7 +11,11 @@ describe('LayoutPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [LayoutPage],
+      imports: [LayoutPage, RouterTestingModule],
+      providers: [
+        { provide: AuthService, useValue: { signOut: () => {} } },
+        { provide: ApiKeyService, useValue: {} },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LayoutPage);
