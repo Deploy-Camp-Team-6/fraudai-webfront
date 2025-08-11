@@ -7,12 +7,10 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
-  IonList,
-  IonItem,
-  IonLabel,
   IonSegment,
   IonSegmentButton,
 } from '@ionic/angular/standalone';
+import { SegmentValue } from '@ionic/angular';
 import { ModelSelectorService } from 'src/app/core/services/model-selector.service';
 import { ApiKeyService } from 'src/app/core/services/api-key.service';
 import { CodeBlockComponent } from 'src/app/shared/components/code-block/code-block.component';
@@ -33,9 +31,6 @@ import { environment } from 'src/environments/environment';
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonList,
-    IonItem,
-    IonLabel,
     IonSegment,
     IonSegmentButton,
     CodeBlockComponent,
@@ -48,7 +43,7 @@ export class DocsPage implements OnDestroy {
   public curlSnippet = '';
   public fetchSnippet = '';
   public pythonSnippet = '';
-  public selectedLanguage = 'curl';
+  public selectedLanguage: SegmentValue = 'curl';
 
   private subscriptions = new Subscription();
 

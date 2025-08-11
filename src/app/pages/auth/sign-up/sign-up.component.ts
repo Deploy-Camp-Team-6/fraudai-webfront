@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./sign-up.component.scss'],
   standalone: true,
 })
-export class SignUpComponent {}
+export class SignUpPage {}
