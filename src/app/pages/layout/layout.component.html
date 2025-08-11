@@ -1,23 +1,4 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-      <ion-title>Fraud AI</ion-title>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button routerLink="/">Home</ion-button>
-      <ion-button routerLink="/docs">Docs</ion-button>
-      <ion-button routerLink="/playground">
-        Playground
-        <ion-badge *ngIf="apiKeyService.isApiKeyActive$ | async" color="success" style="margin-left: 8px;">API Key Active</ion-badge>
-      </ion-button>
-      <ion-button routerLink="/keys" *ngIf="authService.user$ | async">API Keys</ion-button>
-      <ion-button *ngIf="(authService.user$ | async) === null" routerLink="/login" color="light" shape="round">Login</ion-button>
-      <ion-button *ngIf="authService.user$ | async" (click)="logout()" color="light" shape="round">Logout</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
+<app-layout-header></app-layout-header>
 <ion-content>
   <ion-router-outlet></ion-router-outlet>
 </ion-content>

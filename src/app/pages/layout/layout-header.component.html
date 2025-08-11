@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Fraud AI</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button routerLink="/">
+        <ion-icon slot="start" name="home-outline"></ion-icon>
+        Home
+      </ion-button>
+      <ion-button routerLink="/docs">
+        <ion-icon slot="start" name="document-text-outline"></ion-icon>
+        Docs
+      </ion-button>
+      <ion-button routerLink="/playground">
+        <ion-icon slot="start" name="flask-outline"></ion-icon>
+        Playground
+        <ion-badge *ngIf="apiKeyService.isApiKeyActive$ | async" color="success" style="margin-left: 8px;">API Key Active</ion-badge>
+      </ion-button>
+      <ion-button routerLink="/keys" *ngIf="authService.user$ | async">
+        <ion-icon slot="start" name="key-outline"></ion-icon>
+        API Keys
+      </ion-button>
+      <ion-toggle (ionChange)="toggleTheme($event)" [checked]="themeService.isDark" aria-label="Toggle dark mode">
+        <ion-icon slot="start" name="sunny-outline"></ion-icon>
+        <ion-icon slot="end" name="moon-outline"></ion-icon>
+      </ion-toggle>
+      <ion-button *ngIf="(authService.user$ | async) === null" routerLink="/login" color="light" shape="round">
+        <ion-icon slot="start" name="log-in-outline"></ion-icon>
+        Login
+      </ion-button>
+      <ion-button *ngIf="authService.user$ | async" (click)="logout()" color="light" shape="round">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        Logout
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
