@@ -8,7 +8,7 @@ import { STORAGE_KEYS } from '../constants';
 })
 export class ModelSelectorService {
   // In a real app, this would be fetched from an API
-  private availableModels: Model[] = [
+  private readonly availableModels: Model[] = [
     { id: '1', name: 'FraudNet', version: '1.0.0', alias: 'latest' },
     { id: '2', name: 'FraudNet', version: '0.9.0' },
     { id: '3', name: 'RiskGuard', version: '2.1.0', alias: 'beta' },
@@ -41,7 +41,7 @@ export class ModelSelectorService {
   }
 
   getAvailableModels(): Model[] {
-    return this.availableModels;
+    return [...this.availableModels];
   }
 
   setSelectedModel(model: Model) {
