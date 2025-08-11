@@ -3,17 +3,21 @@
 
 :root {
   /* Light mode colors from Ionic color guidelines for accessible contrast */
-  --color-primary: #3880ff; /* Primary brand color */
-  --color-secondary: #0cd1e8; /* Complementary accent color */
-  --color-background: #ffffff;
-  --color-text: #000000;
+  --ion-color-primary: #3880ff; /* Primary brand color */
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-secondary: #0cd1e8; /* Complementary accent color */
+  --ion-color-secondary-contrast: #000000;
+  --ion-background-color: #ffffff;
+  --ion-text-color: #000000;
 }
 
 .dark {
   /* Dark mode colors ensuring sufficient contrast */
-  --color-primary: #4c8dff;
-  --color-secondary: #50c8ff;
-  --color-background: #000000;
-  --color-text: #ffffff;
+  --ion-color-primary: #4c8dff;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-secondary: #50c8ff;
+  --ion-color-secondary-contrast: #000000;
+  --ion-background-color: #000000;
+  --ion-text-color: #ffffff;
 }
 
