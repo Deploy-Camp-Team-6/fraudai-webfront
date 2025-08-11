@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
+  IonGrid,
+  IonRow,
+  IonCol,
   IonSegment,
   IonSegmentButton,
 } from '@ionic/angular/standalone';
@@ -27,10 +26,9 @@ import { environment } from 'src/environments/environment';
     CommonModule,
     FormsModule,
     IonContent,
-    IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardContent,
+    IonGrid,
+    IonRow,
+    IonCol,
     IonSegment,
     IonSegmentButton,
     CodeBlockComponent,
