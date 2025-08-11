@@ -47,7 +47,7 @@ export class LayoutHeaderComponent {
   }
 
   toggleTheme(event: CustomEvent) {
-    this.themeService.toggleDarkTheme(event.detail.checked);
+    this.themeService.setDark(event.detail.checked);
   }
 }
 
