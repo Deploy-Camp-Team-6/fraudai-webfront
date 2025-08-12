@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap, catchError, switchMap } from 'rxjs/operators';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError, from } from 'rxjs';
 import { User } from '../models/user.model';
 import { AuthResponse } from '../models/auth-response.model';
 import { environment } from '../../../environments/environment';
