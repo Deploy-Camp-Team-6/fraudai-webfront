@@ -1,7 +1,10 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
+import { from, of } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 import { STORAGE_KEYS } from '../constants';
 import { ApiKeyService } from '../services/api-key.service';
+import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const apiKeyService = inject(ApiKeyService);
@@ -18,15 +21,20 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   // Then check for auth token
-  const authToken = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
-  if (authToken) {
-    const authReq = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    return next(authReq);
-  }
-
-  return next(req);
+  return from(
+    SecureStoragePlugin.get({ key: STORAGE_KEYS.AUTH_TOKEN })
+  ).pipe(
+    catchError(() => of({ value: null })),
+    switchMap(({ value }) => {
+      if (value) {
+        const authReq = req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${value}`,
+          },
+        });
+        return next(authReq);
+      }
+      return next(req);
+    })
+  );
 };

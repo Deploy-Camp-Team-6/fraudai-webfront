@@ -1,10 +1,11 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthService } from './auth.service';
 import { STORAGE_KEYS } from '../constants';
 import { User } from '../models/user.model';
 import { AuthResponse } from '../models/auth-response.model';
 import { environment } from 'src/environments/environment';
+import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -16,7 +17,9 @@ describe('AuthService', () => {
       providers: [AuthService],
     });
     httpMock = TestBed.inject(HttpTestingController);
-    localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
+    spyOn(SecureStoragePlugin, 'get').and.returnValue(Promise.resolve({ value: null } as any));
+    spyOn(SecureStoragePlugin, 'set').and.returnValue(Promise.resolve({ value: true }));
+    spyOn(SecureStoragePlugin, 'remove').and.returnValue(Promise.resolve({ value: true }));
     environment.useMock = false; // Ensure we are testing the real service logic
     service = TestBed.inject(AuthService);
   });
@@ -41,7 +44,7 @@ describe('AuthService', () => {
     expect(req.request.method).toBe('POST');
     req.flush(mockResponse);
 
-    expect(localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN)).toBe('test-token');
+    expect(SecureStoragePlugin.set).toHaveBeenCalledWith({ key: STORAGE_KEYS.AUTH_TOKEN, value: 'test-token' });
     service.user$.subscribe(user => {
       expect(user).toEqual(mockUser);
     });
@@ -59,34 +62,34 @@ describe('AuthService', () => {
     expect(req.request.method).toBe('POST');
     req.flush(mockResponse);
 
-    expect(localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN)).toBe('new-token');
+    expect(SecureStoragePlugin.set).toHaveBeenCalledWith({ key: STORAGE_KEYS.AUTH_TOKEN, value: 'new-token' });
     service.user$.subscribe(user => {
       expect(user).toEqual(mockUser);
     });
   });
 
   it('should sign out a user and remove the token', () => {
-    localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, 'test-token');
     service.signOut();
-    expect(localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN)).toBeNull();
+    expect(SecureStoragePlugin.remove).toHaveBeenCalledWith({ key: STORAGE_KEYS.AUTH_TOKEN });
     service.user$.subscribe(user => {
       expect(user).toBeNull();
     });
   });
 
-  it('should get the current user if a token is present', () => {
+  it('should get the current user if a token is present', fakeAsync(() => {
     const mockUser: User = { id: '1', email: 'test@example.com', name: 'Test User' };
-    localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, 'test-token');
+    (SecureStoragePlugin.get as jasmine.Spy).and.returnValue(Promise.resolve({ value: 'test-token' }));
 
-    // Manually trigger loadInitialUser since it's in the constructor
-    service['loadInitialUser']();
+    service.me().subscribe();
+    tick();
 
     const req = httpMock.expectOne(`${environment.apiBaseUrl}/v1/auth/me`);
     expect(req.request.method).toBe('GET');
     req.flush(mockUser);
+    tick();
 
     service.user$.subscribe(user => {
       expect(user).toEqual(mockUser);
     });
-  });
+  }));
 });
