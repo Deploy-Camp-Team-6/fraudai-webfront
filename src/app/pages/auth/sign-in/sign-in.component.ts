@@ -2,7 +2,21 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonInput, IonButton, IonSpinner } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonList,
+  IonItem,
+  IonInput,
+  IonButton,
+  IonSpinner,
+  IonIcon,
+} from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { mailOutline, lockClosedOutline } from 'ionicons/icons';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ToastService } from 'src/app/core/services/toast.service';
 
@@ -25,6 +39,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
     IonInput,
     IonButton,
     IonSpinner,
+    IonIcon,
   ],
 })
 export class SignInPage implements OnInit {
@@ -40,6 +55,10 @@ export class SignInPage implements OnInit {
     password: ['', [Validators.required]],
   });
   public loading = false;
+
+  constructor() {
+    addIcons({ mailOutline, lockClosedOutline });
+  }
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || localStorage.getItem('redirectUrl') || '/playground';
