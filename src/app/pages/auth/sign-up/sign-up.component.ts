@@ -13,7 +13,10 @@ import {
   IonInput,
   IonButton,
   IonSpinner,
+  IonIcon,
 } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { personOutline, mailOutline, lockClosedOutline } from 'ionicons/icons';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ToastService } from 'src/app/core/services/toast.service';
 
@@ -36,6 +39,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
     IonInput,
     IonButton,
     IonSpinner,
+    IonIcon,
   ],
 })
 export class SignUpPage {
@@ -54,6 +58,10 @@ export class SignUpPage {
     { validators: this.passwordMatchValidator }
   );
   public loading = false;
+
+  constructor() {
+    addIcons({ personOutline, mailOutline, lockClosedOutline });
+  }
 
   private passwordMatchValidator(control: AbstractControl) {
     const password = control.get('password')?.value;
