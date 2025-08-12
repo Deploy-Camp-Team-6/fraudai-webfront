@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { tap, catchError, map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { AuthResponse } from '../models/auth-response.model';
 import { environment } from '../../../environments/environment';
@@ -34,9 +34,12 @@ export class AuthService {
         tap((response) => this.setAuth(response))
       );
     }
-    return this.http.post<AuthResponse>(`${environment.apiBaseUrl}/v1/auth/sign-in`, credentials).pipe(
-      tap((response) => this.setAuth(response))
-    );
+    return this.http
+      .post<AuthResponse>(`${environment.apiBaseUrl}/v1/auth/sign-in`, credentials)
+      .pipe(
+        tap((response) => this.setAuth(response)),
+        catchError((err) => this.handleError(err))
+      );
   }
 
   signUp(data: { name: string; email: string; password: string }): Observable<AuthResponse> {
@@ -45,9 +48,12 @@ export class AuthService {
       const mockResponse: AuthResponse = { user: mockUser, token: 'mock.token.123' };
       return of(mockResponse).pipe(tap((response) => this.setAuth(response)));
     }
-    return this.http.post<AuthResponse>(`${environment.apiBaseUrl}/v1/auth/sign-up`, data).pipe(
-      tap((response) => this.setAuth(response))
-    );
+    return this.http
+      .post<AuthResponse>(`${environment.apiBaseUrl}/v1/auth/sign-up`, data)
+      .pipe(
+        tap((response) => this.setAuth(response)),
+        catchError((err) => this.handleError(err))
+      );
   }
 
   me(): Observable<User | null> {
@@ -83,6 +89,11 @@ export class AuthService {
   private setAuth(response: AuthResponse) {
     localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, response.token);
     this.userSubject.next(response.user);
+  }
+
+  private handleError(error: any) {
+    const message = error?.error?.message || 'An unexpected error occurred';
+    return throwError(() => message);
   }
 
   isAuthenticated(): boolean {
