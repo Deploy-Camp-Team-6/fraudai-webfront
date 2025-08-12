@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import {
   IonContent,
   IonRouterOutlet,
@@ -20,6 +21,7 @@ import { LayoutHeaderComponent } from './layout-header.component';
   styleUrls: ['./layout.component.scss'],
   standalone: true,
   imports: [
+    RouterLink,
     IonContent,
     IonRouterOutlet,
     IonMenu,
