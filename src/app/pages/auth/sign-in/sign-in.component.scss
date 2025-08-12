@@ -1,5 +1,10 @@
 @use 'sass:map';
 
+// Container centers card and provides background
+.auth-content {
+  --background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-tertiary));
+}
+
 .auth-container {
   height: 100%;
   display: flex;
@@ -7,10 +12,29 @@
   align-items: center;
 }
 
+// Modern glass-like card styling
 .auth-card {
   width: 100%;
   max-width: 320px;
   margin: 0 auto;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+// Input and button customisation
+.input-item {
+  --background: rgba(255, 255, 255, 0.2);
+  margin-bottom: 12px;
+  border-radius: 8px;
+}
+
+.submit-button {
+  --background: linear-gradient(135deg, var(--ion-color-secondary), var(--ion-color-primary));
+  --box-shadow: none;
+  margin-top: 16px;
+  border-radius: 8px;
 }
 
 @media (min-width: 768px) {
