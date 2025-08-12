@@ -15,6 +15,7 @@ RUN npm run build -- --configuration=production
 # Stage 2: serve the built app with Nginx
 FROM nginx:alpine
 COPY --from=build /app/www /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
