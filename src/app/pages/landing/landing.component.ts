@@ -6,7 +6,6 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonImg,
   IonIcon,
 } from '@ionic/angular/standalone';
 import { CardComponent } from '../../shared/components/card/card.component';
@@ -25,7 +24,6 @@ import { shieldCheckmarkOutline, codeSlashOutline, analyticsOutline, serverOutli
     IonGrid,
     IonRow,
     IonCol,
-    IonImg,
     IonIcon,
     CardComponent,
   ],
