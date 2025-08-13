@@ -8,7 +8,6 @@ import {
   IonMenuButton,
   IonButton,
   IonIcon,
-  IonBadge,
 } from '@ionic/angular/standalone';
 
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -32,7 +31,6 @@ import { logInOutline, logOutOutline, keyOutline } from 'ionicons/icons';
     IonMenuButton,
     IonButton,
     IonIcon,
-    IonBadge,
     BrandLogoComponent,
     ThemeToggleComponent,
   ],
