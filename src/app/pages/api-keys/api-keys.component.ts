@@ -1,16 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonButton,
   IonIcon,
-  IonButtons,
-  IonList,
-  IonItem,
-  IonLabel,
 } from '@ionic/angular/standalone';
 import { AlertController, ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
@@ -37,16 +30,9 @@ export interface ApiKey {
   imports: [
     CommonModule,
     DatePipe,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonButton,
     IonIcon,
-    IonButtons,
-    IonList,
-    IonItem,
-    IonLabel,
     CardComponent,
   ],
 })
