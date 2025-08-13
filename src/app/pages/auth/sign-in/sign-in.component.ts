@@ -4,10 +4,6 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   IonContent,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
   IonList,
   IonItem,
   IonInput,
@@ -19,6 +15,8 @@ import { addIcons } from 'ionicons';
 import { mailOutline, lockClosedOutline } from 'ionicons/icons';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { CardComponent } from 'src/app/shared/components/card/card.component';
+import { BrandLogoComponent } from 'src/app/shared/components/brand-logo/brand-logo.component';
 
 @Component({
   selector: 'app-sign-in',
@@ -30,10 +28,6 @@ import { ToastService } from 'src/app/core/services/toast.service';
     ReactiveFormsModule,
     RouterLink,
     IonContent,
-    IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardContent,
     IonList,
     IonItem,
     IonInput,
@@ -41,6 +35,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
     IonSpinner,
     IonIcon,
     CardComponent,
+    BrandLogoComponent,
   ],
 })
 export class SignInPage implements OnInit {
