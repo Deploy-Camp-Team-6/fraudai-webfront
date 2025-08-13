@@ -1,26 +1,31 @@
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { ThemeService } from './theme.service';
 import { DOCUMENT } from '@angular/common';
+import { PLATFORM_ID } from '@angular/core';
+import { ThemeService } from './theme.service';
 import { STORAGE_KEYS } from '../constants';
 
 describe('ThemeService', () => {
-  let service: ThemeService;
   let documentRef: Document;
 
   beforeEach(() => {
     localStorage.removeItem(STORAGE_KEYS.THEME);
     TestBed.configureTestingModule({
-      providers: [ThemeService]
+      providers: [{ provide: PLATFORM_ID, useValue: 'browser' }],
     });
-    service = TestBed.inject(ThemeService);
     documentRef = TestBed.inject(DOCUMENT);
   });
 
+  function createService(): ThemeService {
+    return TestBed.runInInjectionContext(() => new ThemeService());
+  }
+
   it('should be created', () => {
+    const service = createService();
     expect(service).toBeTruthy();
   });
 
   it('should toggle theme and persist choice', fakeAsync(() => {
+    const service = createService();
     // Set a predictable start state for the test
     service.theme.set('light');
     tick(); // Let the effect run once to set initial state
@@ -44,8 +49,7 @@ describe('ThemeService', () => {
 
   it('should initialize from localStorage if a theme is stored', () => {
     localStorage.setItem(STORAGE_KEYS.THEME, 'dark');
-    // Create a new service to test initialization
-    const newService = TestBed.inject(ThemeService);
+    const newService = createService();
     expect(newService.theme()).toBe('dark');
   });
 });
