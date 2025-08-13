@@ -3,9 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
-  IonGrid,
-  IonRow,
-  IonCol,
   IonSegment,
   IonSegmentButton,
 } from '@ionic/angular/standalone';
@@ -27,9 +24,6 @@ import { CalloutComponent } from 'src/app/shared/components/callout/callout.comp
     CommonModule,
     FormsModule,
     IonContent,
-    IonGrid,
-    IonRow,
-    IonCol,
     IonSegment,
     IonSegmentButton,
     CodeBlockComponent,
