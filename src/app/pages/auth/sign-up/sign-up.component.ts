@@ -40,6 +40,8 @@ import { ToastService } from 'src/app/core/services/toast.service';
     IonButton,
     IonSpinner,
     IonIcon,
+    CardComponent,
+    BrandLogoComponent,
   ],
 })
 export class SignUpPage {

@@ -40,6 +40,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
     IonButton,
     IonSpinner,
     IonIcon,
+    CardComponent,
   ],
 })
 export class SignInPage implements OnInit {
