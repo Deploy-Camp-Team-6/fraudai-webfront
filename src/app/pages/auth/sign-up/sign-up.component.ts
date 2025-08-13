@@ -4,21 +4,20 @@ import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl } from '@
 import { Router, RouterLink } from '@angular/router';
 import {
   IonContent,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
   IonList,
   IonItem,
   IonInput,
   IonButton,
   IonSpinner,
   IonIcon,
+  IonNote,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { personOutline, mailOutline, lockClosedOutline } from 'ionicons/icons';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { CardComponent } from 'src/app/shared/components/card/card.component';
+import { BrandLogoComponent } from 'src/app/shared/components/brand-logo/brand-logo.component';
 
 @Component({
   selector: 'app-sign-up',
@@ -30,16 +29,13 @@ import { ToastService } from 'src/app/core/services/toast.service';
     ReactiveFormsModule,
     RouterLink,
     IonContent,
-    IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardContent,
     IonList,
     IonItem,
     IonInput,
     IonButton,
     IonSpinner,
     IonIcon,
+    IonNote,
     CardComponent,
     BrandLogoComponent,
   ],
