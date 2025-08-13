@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: hsl(var(--surface-1-hsl));
+  border-radius: var(--radius-2xl);
+  border: 1px solid hsl(var(--border-0-hsl));
+  box-shadow: var(--shadow-md);
+  padding: var(--space-5);
+  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+}
+
+:host(.interactive) .card {
+  cursor: pointer;
+}
+
+:host(.interactive:hover) .card {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}

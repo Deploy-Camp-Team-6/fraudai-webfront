@@ -1,0 +1,54 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.chip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+}
+
+:host([data-color="neutral"]) {
+  background-color: hsl(var(--surface-1-hsl));
+  border-color: hsl(var(--border-0-hsl));
+  color: hsl(var(--text-1-hsl));
+  .chip-dot {
+    background-color: hsl(var(--text-2-hsl));
+  }
+}
+
+:host([data-color="success"]) {
+  background-color: hsl(var(--color-success-hsl) / 0.1);
+  border-color: hsl(var(--color-success-hsl) / 0.2);
+  color: hsl(var(--color-success-hsl));
+  .chip-dot {
+    background-color: hsl(var(--color-success-hsl));
+  }
+}
+
+:host([data-color="warning"]) {
+  background-color: hsl(var(--color-warning-hsl) / 0.1);
+  border-color: hsl(var(--color-warning-hsl) / 0.3);
+  color: hsl(var(--color-warning-hsl));
+  .chip-dot {
+    background-color: hsl(var(--color-warning-hsl));
+  }
+}
+
+:host([data-color="danger"]) {
+  background-color: hsl(var(--color-danger-hsl) / 0.1);
+  border-color: hsl(var(--color-danger-hsl) / 0.2);
+  color: hsl(var(--color-danger-hsl));
+  .chip-dot {
+    background-color: hsl(var(--color-danger-hsl));
+  }
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   IonContent,
@@ -7,7 +7,11 @@ import {
   IonRow,
   IonCol,
   IonImg,
+  IonIcon,
 } from '@ionic/angular/standalone';
+import { CardComponent } from '../../shared/components/card/card.component';
+import { addIcons } from 'ionicons';
+import { shieldCheckmarkOutline, codeSlashOutline, analyticsOutline, serverOutline, documentTextOutline, flashOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-landing',
@@ -22,6 +26,13 @@ import {
     IonRow,
     IonCol,
     IonImg,
+    IonIcon,
+    CardComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LandingPage {}
+export class LandingPage {
+  constructor() {
+    addIcons({ shieldCheckmarkOutline, codeSlashOutline, analyticsOutline, serverOutline, documentTextOutline, flashOutline });
+  }
+}
