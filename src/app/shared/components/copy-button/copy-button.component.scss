@@ -1,0 +1,31 @@
+:host {
+  display: block;
+}
+
+ion-button {
+  --background: hsl(var(--surface-0-hsl) / 0.5);
+  --background-hover: hsl(var(--surface-2-hsl));
+  --color: hsl(var(--text-1-hsl));
+  --border-radius: var(--radius-full);
+  --padding-start: 0;
+  --padding-end: 0;
+  width: 36px;
+  height: 36px;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid hsl(var(--border-0-hsl));
+
+  &.ion-activated {
+    transform: scale(0.9);
+  }
+
+  ion-icon {
+    font-size: 1rem;
+  }
+}
+
+ion-button[disabled] {
+  --background: hsl(var(--color-success-hsl) / 0.15);
+  --color: hsl(var(--color-success-hsl));
+  --border-color: hsl(var(--color-success-hsl) / 0.3);
+  transform: scale(1.05);
+}

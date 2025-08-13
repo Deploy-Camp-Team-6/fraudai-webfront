@@ -1,41 +1,32 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
+<ion-header class="custom-header" mode="ios">
+  <ion-toolbar>
+    <div class="header-container">
+      <div class="start-section">
+        <ion-buttons>
+          <ion-menu-button class="menu-button"></ion-menu-button>
+        </ion-buttons>
+        <app-brand-logo></app-brand-logo>
+      </div>
 
-    <ion-title>Fraud AI</ion-title>
+      <div class="end-section">
+        <div class="desktop-nav">
+          <ion-button routerLink="/playground" fill="clear" class="nav-link">Playground</ion-button>
+          <ion-button routerLink="/docs" fill="clear" class="nav-link">Docs</ion-button>
+          <ion-button *ngIf="authService.user$ | async" routerLink="/keys" fill="clear" class="nav-link">API Keys</ion-button>
+        </div>
 
-    <ion-buttons slot="end">
-      <ion-button routerLink="/" class="nav-link">
-        <ion-icon slot="start" name="home-outline"></ion-icon>
-        Home
-      </ion-button>
-      <ion-button routerLink="/docs" class="nav-link">
-        <ion-icon slot="start" name="document-text-outline"></ion-icon>
-        Docs
-      </ion-button>
-      <ion-button routerLink="/playground" class="nav-link">
-        <ion-icon slot="start" name="flask-outline"></ion-icon>
-        Playground
-        <ion-badge *ngIf="apiKeyService.isApiKeyActive$ | async" color="success" style="margin-left: 8px;">API Key Active</ion-badge>
-      </ion-button>
-      <ion-button routerLink="/keys" *ngIf="authService.user$ | async" class="nav-link">
-        <ion-icon slot="start" name="key-outline"></ion-icon>
-        API Keys
-      </ion-button>
-      <ion-toggle (ionChange)="toggleTheme($event)" [checked]="themeService.isDark()" aria-label="Toggle dark mode">
-        <ion-icon slot="start" name="sunny-outline"></ion-icon>
-        <ion-icon slot="end" name="moon-outline"></ion-icon>
-      </ion-toggle>
-      <ion-button *ngIf="(authService.user$ | async) === null" routerLink="/login" color="light" shape="round">
-        <ion-icon slot="start" name="log-in-outline"></ion-icon>
-        Login
-      </ion-button>
-      <ion-button *ngIf="authService.user$ | async" (click)="logout()" color="light" shape="round">
-        <ion-icon slot="start" name="log-out-outline"></ion-icon>
-        Logout
-      </ion-button>
-    </ion-buttons>
+        <app-theme-toggle></app-theme-toggle>
+
+        <ion-button *ngIf="(authService.user$ | async) === null" routerLink="/auth/sign-in" shape="round" class="login-button">
+          <ion-icon slot="start" name="log-in-outline"></ion-icon>
+          Sign In
+        </ion-button>
+
+        <ion-button *ngIf="authService.user$ | async" (click)="logout()" shape="round" class="logout-button" fill="outline">
+           <ion-icon slot="start" name="log-out-outline"></ion-icon>
+           Sign Out
+        </ion-button>
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>

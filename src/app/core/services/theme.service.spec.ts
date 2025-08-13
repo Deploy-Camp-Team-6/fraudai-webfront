@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ThemeService } from './theme.service';
 import { DOCUMENT } from '@angular/common';
 import { STORAGE_KEYS } from '../constants';
@@ -9,7 +9,9 @@ describe('ThemeService', () => {
 
   beforeEach(() => {
     localStorage.removeItem(STORAGE_KEYS.THEME);
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [ThemeService]
+    });
     service = TestBed.inject(ThemeService);
     documentRef = TestBed.inject(DOCUMENT);
   });
@@ -18,13 +20,32 @@ describe('ThemeService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should toggle dark class and persist choice', () => {
-    service.setDark(true);
-    expect(documentRef.body.classList.contains('dark')).toBeTrue();
+  it('should toggle theme and persist choice', fakeAsync(() => {
+    // Set a predictable start state for the test
+    service.theme.set('light');
+    tick(); // Let the effect run once to set initial state
+
+    // Toggle to dark
+    service.toggleTheme();
+    tick();
+
+    expect(service.theme()).toBe('dark');
+    expect(documentRef.documentElement.getAttribute('data-theme')).toBe('dark');
     expect(localStorage.getItem(STORAGE_KEYS.THEME)).toBe('dark');
 
-    service.toggle();
-    expect(documentRef.body.classList.contains('dark')).toBeFalse();
+    // Toggle back to light
+    service.toggleTheme();
+    tick();
+
+    expect(service.theme()).toBe('light');
+    expect(documentRef.documentElement.getAttribute('data-theme')).toBe('light');
     expect(localStorage.getItem(STORAGE_KEYS.THEME)).toBe('light');
+  }));
+
+  it('should initialize from localStorage if a theme is stored', () => {
+    localStorage.setItem(STORAGE_KEYS.THEME, 'dark');
+    // Create a new service to test initialization
+    const newService = TestBed.inject(ThemeService);
+    expect(newService.theme()).toBe('dark');
   });
 });

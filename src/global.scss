@@ -178,6 +178,33 @@ pre code {
   border-radius: var(--radius-sm);
 }
 
+/*
+ * =============================================================================
+ * Toast Component
+ * =============================================================================
+ */
+
+ion-toast {
+  --background: hsl(var(--surface-1-hsl));
+  --color: hsl(var(--text-0-hsl));
+  --border-radius: var(--radius-md);
+  --box-shadow: var(--shadow-lg);
+  border: 1px solid hsl(var(--border-0-hsl));
+  padding: var(--space-2);
+}
+
+.toast-wrapper.toast-success {
+  --background: hsl(var(--color-success-hsl) / 0.15);
+  --color: hsl(var(--color-success-hsl));
+  border: 1px solid hsl(var(--color-success-hsl) / 0.3);
+}
+
+.toast-wrapper.toast-danger {
+  --background: hsl(var(--color-danger-hsl) / 0.15);
+  --color: hsl(var(--color-danger-hsl));
+  border: 1px solid hsl(var(--color-danger-hsl) / 0.3);
+}
+
 /* Remove outline for non-keyboard focus */
 :focus:not(:focus-visible) {
   outline: none;

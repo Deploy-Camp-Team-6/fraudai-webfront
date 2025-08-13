@@ -1,51 +1,62 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>API Keys</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="app-container">
+    <div class="page-header">
+      <h1>API Keys</h1>
+      <ion-button (click)="createKey()">
+        <ion-icon slot="start" name="add"></ion-icon>
+        Generate New Key
+      </ion-button>
+    </div>
+    <p class="page-subtitle">Manage your API keys for accessing the FraudAI service.</p>
 
-<ion-content class="ion-padding">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>
-        Manage API Keys
-      </ion-card-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="createKey()" fill="solid" color="primary">
-          <ion-icon slot="start" name="add"></ion-icon>
-          Create Key
-        </ion-button>
-      </ion-buttons>
-    </ion-card-header>
-    <ion-card-content>
-      <div class="table-responsive">
-        <table class="key-table">
+    <app-card>
+      <div *ngIf="apiKeys.length > 0; else emptyState" class="table-container">
+        <table>
           <thead>
             <tr>
               <th>Name</th>
-              <th>Prefix</th>
+              <th>Key</th>
+              <th>Scopes</th>
               <th>Created</th>
               <th>Last Used</th>
-              <th>Actions</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let key of apiKeys">
               <td>{{ key.name }}</td>
-              <td>{{ key.prefix }}</td>
-              <td>{{ key.createdAt | date:'medium' }}</td>
-              <td>{{ key.lastUsed | date:'medium' }}</td>
               <td>
-                <ion-buttons>
-                  <ion-button (click)="revokeKey(key)" color="danger" fill="clear">
-                    <ion-icon slot="icon-only" name="trash"></ion-icon>
+                <div class="key-cell">
+                  <span>{{ key.prefix }}</span>
+                  <ion-button fill="clear" size="small" (click)="copyKey(key.key)">
+                    <ion-icon slot="icon-only" name="copy-outline"></ion-icon>
                   </ion-button>
-                </ion-buttons>
+                </div>
+              </td>
+              <td>
+                <div class="scopes-cell">
+                  <span *ngFor="let scope of key.scopes" class="scope-badge">{{ scope }}</span>
+                </div>
+              </td>
+              <td>{{ key.createdAt | date:'mediumDate' }}</td>
+              <td>{{ key.lastUsed ? (key.lastUsed | date:'mediumDate') : 'Never' }}</td>
+              <td>
+                <ion-button fill="clear" size="small" color="danger" (click)="revokeKey(key)">
+                  <ion-icon slot="icon-only" name="trash"></ion-icon>
+                </ion-button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-    </ion-card-content>
-  </ion-card>
+
+      <ng-template #emptyState>
+        <div class="empty-state">
+          <h3>No API Keys Yet</h3>
+          <p>Generate your first API key to get started.</p>
+          <ion-button (click)="createKey()" fill="outline">Generate Key</ion-button>
+        </div>
+      </ng-template>
+    </app-card>
+  </div>
 </ion-content>

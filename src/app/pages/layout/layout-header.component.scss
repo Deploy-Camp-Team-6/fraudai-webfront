@@ -1,16 +1,82 @@
-ion-buttons[slot='end'] {
-  display: flex;
-  align-items: center;
-}
+:host {
+  .custom-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
 
-@media (max-width: 767px) {
-  ion-buttons[slot='end'] .nav-link {
-    display: none;
+    // Removes the default ion-header box-shadow
+    &::after {
+      content: none;
+    }
   }
-}
 
-@media (min-width: 768px) {
-  ion-menu-button {
-    display: none;
+  ion-toolbar {
+    // The glassmorphism effect
+    --background: hsl(var(--surface-0-hsl) / 0.75);
+    backdrop-filter: saturate(180%) blur(12px);
+
+    // A subtle bottom border to separate from content
+    --border-width: 0 0 1px 0;
+    --border-color: hsl(var(--border-0-hsl));
+  }
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: var(--space-6);
+    height: 64px;
+  }
+
+  .start-section,
+  .end-section {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .menu-button {
+    --color: hsl(var(--text-1-hsl));
+    display: none; // Hidden on desktop by default
+  }
+
+  .nav-link {
+    --color: hsl(var(--text-1-hsl));
+    --color-hover: hsl(var(--text-0-hsl));
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .login-button {
+    --background: hsl(var(--brand-primary-hsl));
+    --background-hover: hsl(var(--brand-primary-hsl) / 0.9);
+    --color: #fff; // High contrast for primary button
+    font-weight: 500;
+  }
+
+  .logout-button {
+    --color: hsl(var(--brand-primary-hsl));
+    --border-color: hsl(var(--brand-primary-hsl) / 0.5);
+    --color-hover: hsl(var(--brand-primary-hsl));
+    --border-color-hover: hsl(var(--brand-primary-hsl));
+    font-weight: 500;
+  }
+
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    .header-container {
+      padding-inline: var(--space-4);
+    }
+    .desktop-nav {
+      display: none;
+    }
+    .menu-button {
+      display: flex;
+    }
   }
 }
