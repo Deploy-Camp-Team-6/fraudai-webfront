@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   IonContent,
@@ -6,7 +6,6 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonImg,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -21,7 +20,7 @@ import {
     IonGrid,
     IonRow,
     IonCol,
-    IonImg,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LandingPage {}

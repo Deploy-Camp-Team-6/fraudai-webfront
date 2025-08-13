@@ -1,11 +1,8 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
-  IonGrid,
-  IonRow,
-  IonCol,
   IonSegment,
   IonSegmentButton,
 } from '@ionic/angular/standalone';
@@ -26,13 +23,11 @@ import { environment } from 'src/environments/environment';
     CommonModule,
     FormsModule,
     IonContent,
-    IonGrid,
-    IonRow,
-    IonCol,
     IonSegment,
     IonSegmentButton,
     CodeBlockComponent,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class DocsPage implements OnDestroy {
   public modelSelectorService = inject(ModelSelectorService);

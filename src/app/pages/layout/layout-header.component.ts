@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import {
@@ -8,7 +8,6 @@ import {
   IonButtons,
   IonButton,
   IonMenuButton,
-  IonBadge,
   IonToggle,
   IonIcon,
 } from '@ionic/angular/standalone';
@@ -30,10 +29,10 @@ import { ThemeService } from 'src/app/core/services/theme.service';
     IonButtons,
     IonButton,
     IonMenuButton,
-    IonBadge,
     IonToggle,
     IonIcon,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LayoutHeaderComponent {
   apiKeyService = inject(ApiKeyService);

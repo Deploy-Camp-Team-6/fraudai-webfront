@@ -1,9 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonButton,
   IonIcon,
@@ -11,12 +8,12 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
-  IonButtons,
 } from '@ionic/angular/standalone';
 import { AlertController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { add, trash, eye } from 'ionicons/icons';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 export interface ApiKey {
   name: string;
@@ -32,9 +29,6 @@ export interface ApiKey {
   standalone: true,
   imports: [
     CommonModule,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonButton,
     IonIcon,
@@ -42,8 +36,8 @@ export interface ApiKey {
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonButtons,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ApiKeysComponent {
   public apiKeys: ApiKey[] = [
