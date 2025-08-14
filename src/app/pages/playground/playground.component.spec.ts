@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 
 import { PlaygroundComponent } from './playground.component';
@@ -19,7 +20,7 @@ describe('PlaygroundComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [PlaygroundComponent],
+      imports: [PlaygroundComponent, HttpClientTestingModule],
       providers: [{ provide: ModelSelectorService, useClass: MockModelSelectorService }],
     }).compileComponents();
 
