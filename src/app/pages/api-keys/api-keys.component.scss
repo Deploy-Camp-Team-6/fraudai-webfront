@@ -51,18 +51,6 @@ tbody tr:last-child td {
   font-family: 'JetBrains Mono', monospace;
 }
 
-.scopes-cell {
-  display: flex;
-  gap: var(--space-2);
-}
-
-.scope-badge {
-  display: inline-block;
-  padding: var(--space-1) var(--space-2);
-  background-color: hsl(var(--surface-2-hsl));
-  border-radius: var(--radius-sm);
-  font-weight: 500;
-}
 
 .empty-state {
   padding: var(--space-7) var(--space-5);
