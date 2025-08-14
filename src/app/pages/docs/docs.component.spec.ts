@@ -6,6 +6,7 @@ import {
 } from '@angular/common/http/testing';
 
 import { DocsPage } from './docs.component';
+import { environment } from 'src/environments/environment';
 
 describe('DocsPage', () => {
   let component: DocsPage;
@@ -23,7 +24,7 @@ describe('DocsPage', () => {
 
       fixture = TestBed.createComponent(DocsPage);
       httpMock
-        .expectOne('http://localhost:8000/api/v1/inference/models')
+        .expectOne(`${environment.apiBaseUrl}/v1/inference/models`)
         .flush({ models: [] });
 
       component = fixture.componentInstance;
