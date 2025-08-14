@@ -16,7 +16,7 @@ describe('ApiKeysComponent', () => {
         { provide: AlertController, useValue: { create: () => Promise.resolve({ present: () => Promise.resolve() }) } },
         { provide: ModalController, useValue: {} },
         { provide: ToastService, useValue: { present: () => Promise.resolve() } },
-        { provide: HttpClient, useValue: { get: () => of([]) } },
+        { provide: HttpClient, useValue: { get: () => of([]), delete: () => of(null) } },
       ],
     }).compileComponents();
 
