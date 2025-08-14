@@ -58,7 +58,8 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
 
   public availableModels: Model[] = [];
   public selectedModelId: string | null = null;
-  public requestBody = '{\n  "amount": 120.50,\n  "currency": "USD",\n  "user_id": "user-12345"\n}';
+  public requestBody =
+    '{\n  "transaction_id": 9876543210,\n  "amount": 200.12,\n  "device_type": "laptop",\n  "merchant_type": "electronics"\n}';
   public responseBody = '';
   public responseStatus = '';
   public responseLatency = 0;
@@ -108,9 +109,27 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const selectedModel = this.modelSelectorService.getSelectedModel();
+    if (!selectedModel) {
+      this.responseStatus = 'No model selected';
+      this.isLoading = false;
+      return;
+    }
+
+    const requiredFields = selectedModel.signature_inputs;
+    const missingFields = requiredFields.filter(f => !(f in features));
+    if (missingFields.length) {
+      this.responseStatus = `Missing fields: ${missingFields.join(', ')}`;
+      this.isLoading = false;
+      return;
+    }
+
+    const filteredFeatures: any = {};
+    requiredFields.forEach(key => (filteredFeatures[key] = features[key]));
+
     const payload = {
-      model: this.modelSelectorService.getSelectedModel()?.id,
-      features,
+      model: selectedModel.model_type,
+      features: filteredFeatures,
     };
 
     const startTime = Date.now();
@@ -175,13 +194,10 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
   loadExample() {
     this.requestBody = JSON.stringify(
       {
-        amount: 99.99,
-        currency: 'EUR',
-        user_id: 'user-67890',
-        metadata: {
-          device_id: 'abc-123',
-          ip_address: '123.45.67.89',
-        },
+        transaction_id: 9876543210,
+        amount: 200.12,
+        device_type: 'laptop',
+        merchant_type: 'electronics',
       },
       null,
       2,
