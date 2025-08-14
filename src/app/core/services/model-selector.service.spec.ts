@@ -3,6 +3,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { ModelSelectorService } from './model-selector.service';
+import { environment } from 'src/environments/environment';
 
 describe('ModelSelectorService', () => {
   let service: ModelSelectorService;
@@ -16,7 +17,7 @@ describe('ModelSelectorService', () => {
     httpMock = TestBed.inject(HttpTestingController);
 
     httpMock
-      .expectOne('http://localhost:8000/api/v1/inference/models')
+      .expectOne(`${environment.apiBaseUrl}/v1/inference/models`)
       .flush({ models: [] });
   });
 
