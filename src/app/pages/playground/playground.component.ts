@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ModelSelectorService } from 'src/app/core/services/model-selector.service';
@@ -49,7 +49,7 @@ import { playOutline, refreshOutline, documentTextOutline } from 'ionicons/icons
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlaygroundComponent implements OnDestroy {
+export class PlaygroundComponent implements OnInit, OnDestroy {
   public modelSelectorService = inject(ModelSelectorService);
   public apiKeyService = inject(ApiKeyService);
 
@@ -65,11 +65,19 @@ export class PlaygroundComponent implements OnDestroy {
 
   constructor() {
     addIcons({ playOutline, refreshOutline, documentTextOutline });
-    this.availableModels = this.modelSelectorService.getAvailableModels();
+  }
+
+  ngOnInit(): void {
+    this.sub.add(
+      this.modelSelectorService.availableModels$.subscribe(models => {
+        this.availableModels = models;
+      })
+    );
+
     this.sub.add(
       this.modelSelectorService.selectedModel$.subscribe(model => {
         this.selectedModelId = model?.id || null;
-      }),
+      })
     );
   }
 

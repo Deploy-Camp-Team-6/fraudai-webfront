@@ -1,33 +1,54 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Model } from '../models/model.model';
 import { STORAGE_KEYS } from '../constants';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModelSelectorService {
-  // In a real app, this would be fetched from an API
-  private readonly availableModels: Model[] = [
-    { id: '1', name: 'FraudNet', version: '1.0.0', alias: 'latest' },
-    { id: '2', name: 'FraudNet', version: '0.9.0' },
-    { id: '3', name: 'RiskGuard', version: '2.1.0', alias: 'beta' },
-  ];
+  private http = inject(HttpClient);
+
+  private availableModelsSubject = new BehaviorSubject<Model[]>([]);
+  public availableModels$ = this.availableModelsSubject.asObservable();
 
   private selectedModelSubject = new BehaviorSubject<Model | null>(null);
   public selectedModel$ = this.selectedModelSubject.asObservable();
 
   constructor() {
-    this.loadInitialModel();
+    this.fetchModels();
   }
 
-  private loadInitialModel() {
+  private fetchModels() {
+    const url = `${environment.apiBaseUrl}/v1/inference/models`;
+    this.http.get<{ models: any[] }>(url).subscribe({
+      next: res => {
+        const models: Model[] = res.models.map(m => ({
+          id: m.run_id,
+          model_type: m.model_type,
+          name: m.name,
+          version: m.version,
+          stage: m.stage,
+          run_id: m.run_id,
+          signature_inputs: m.signature_inputs,
+        }));
+        this.availableModelsSubject.next(models);
+        this.loadInitialModel(models);
+      },
+      error: err => {
+        console.error('Failed to load models:', err);
+      },
+    });
+  }
+
+  private loadInitialModel(models: Model[]) {
     try {
       const storedModel = localStorage.getItem(STORAGE_KEYS.MODEL_SELECTOR);
       if (storedModel) {
         const parsedModel = JSON.parse(storedModel);
-        // Basic validation to ensure the stored model is valid
-        if (this.availableModels.some(m => m.id === parsedModel.id)) {
+        if (models.some(m => m.id === parsedModel.id)) {
           this.selectedModelSubject.next(parsedModel);
           return;
         }
@@ -36,12 +57,14 @@ export class ModelSelectorService {
       console.error('Error parsing stored model:', e);
       localStorage.removeItem(STORAGE_KEYS.MODEL_SELECTOR);
     }
-    // Set default model if nothing valid is stored
-    this.selectedModelSubject.next(this.availableModels[0]);
+
+    if (models.length > 0) {
+      this.selectedModelSubject.next(models[0]);
+    }
   }
 
   getAvailableModels(): Model[] {
-    return [...this.availableModels];
+    return [...this.availableModelsSubject.value];
   }
 
   setSelectedModel(model: Model) {
@@ -53,3 +76,4 @@ export class ModelSelectorService {
     return this.selectedModelSubject.value;
   }
 }
+
