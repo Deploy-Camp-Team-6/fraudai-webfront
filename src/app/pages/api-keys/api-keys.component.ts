@@ -17,7 +17,6 @@ export interface ApiKey {
   name: string;
   key: string;
   prefix: string;
-  scopes: string[];
   createdAt: Date;
   lastUsed: Date | null;
 }
@@ -38,8 +37,8 @@ export interface ApiKey {
 })
 export class ApiKeysComponent {
   public apiKeys: ApiKey[] = [
-    { name: 'My First Key', key: 'sk_live_123abcde', prefix: 'sk_live_...', scopes: ['read', 'write'], createdAt: new Date(), lastUsed: new Date(Date.now() - 1000 * 60 * 60 * 24) },
-    { name: 'Marketing Campaign Key', key: 'sk_live_456fghij', prefix: 'sk_live_...', scopes: ['read'], createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7), lastUsed: null },
+    { name: 'My First Key', key: 'sk_live_123abcde', prefix: 'sk_live_...', createdAt: new Date(), lastUsed: new Date(Date.now() - 1000 * 60 * 60 * 24) },
+    { name: 'Marketing Campaign Key', key: 'sk_live_456fghij', prefix: 'sk_live_...', createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7), lastUsed: null },
   ];
 
   private alertCtrl = inject(AlertController);
@@ -63,7 +62,6 @@ export class ApiKeysComponent {
         name: data.name || 'New API Key',
         key: `sk_live_${Math.random().toString(36).substring(2)}`,
         prefix: `sk_live_...${Math.random().toString(36).substring(9, 13)}`,
-        scopes: data.scopes,
         createdAt: new Date(),
         lastUsed: null,
       };

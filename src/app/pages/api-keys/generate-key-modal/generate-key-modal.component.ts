@@ -12,8 +12,6 @@ import {
   IonInput,
   IonButton,
   IonIcon,
-  IonCheckbox,
-  IonLabel,
   IonButtons,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
@@ -35,14 +33,11 @@ import { close } from 'ionicons/icons';
     IonInput,
     IonButton,
     IonIcon,
-    IonCheckbox,
-    IonLabel,
     IonButtons,
   ],
 })
 export class GenerateKeyModalComponent {
   public name = '';
-  public scopes = { read: false, write: false };
   private modalCtrl = inject(ModalController);
 
   constructor() {
@@ -54,9 +49,6 @@ export class GenerateKeyModalComponent {
   }
 
   confirm() {
-    const selectedScopes = Object.entries(this.scopes)
-      .filter(([, checked]) => checked)
-      .map(([scope]) => scope);
-    return this.modalCtrl.dismiss({ name: this.name, scopes: selectedScopes }, 'confirm');
+    return this.modalCtrl.dismiss({ name: this.name }, 'confirm');
   }
 }

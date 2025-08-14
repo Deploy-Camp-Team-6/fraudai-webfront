@@ -16,7 +16,6 @@
             <tr>
               <th>Name</th>
               <th>Key</th>
-              <th>Scopes</th>
               <th>Created</th>
               <th>Last Used</th>
               <th></th>
@@ -31,11 +30,6 @@
                   <ion-button fill="clear" size="small" (click)="copyKey(key.key)">
                     <ion-icon slot="icon-only" name="copy-outline"></ion-icon>
                   </ion-button>
-                </div>
-              </td>
-              <td>
-                <div class="scopes-cell">
-                  <span *ngFor="let scope of key.scopes" class="scope-badge">{{ scope }}</span>
                 </div>
               </td>
               <td>{{ key.createdAt | date:'mediumDate' }}</td>
