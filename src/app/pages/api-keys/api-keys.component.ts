@@ -12,7 +12,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
 import { GenerateKeyModalComponent } from './generate-key-modal/generate-key-modal.component';
 import { CardComponent } from 'src/app/shared/components/card/card.component';
 import { Clipboard } from '@capacitor/clipboard';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
 interface ApiKeyResponse {
@@ -26,6 +26,7 @@ interface ApiKeyResponse {
 }
 
 export interface ApiKey {
+  id: number;
   label: string;
   key: string;
   prefix: string;
@@ -81,6 +82,7 @@ export class ApiKeysComponent implements OnInit {
       .subscribe({
         next: (keys) =>
           (this.apiKeys = keys.map((k) => ({
+            id: k.id,
             label: k.label,
             key: k.key,
             prefix: this.maskKey(k.key),
@@ -114,6 +116,7 @@ export class ApiKeysComponent implements OnInit {
             const keyString = res.key;
             const details = res.details;
             const newKey: ApiKey = {
+              id: details.id,
               label: details.label,
               key: keyString,
               prefix: this.maskKey(keyString),
@@ -146,8 +149,28 @@ export class ApiKeysComponent implements OnInit {
           text: 'Revoke',
           role: 'destructive',
           handler: () => {
-            this.apiKeys = this.apiKeys.filter(k => k.key !== keyToRevoke.key);
-            this.toastService.present({ message: 'API key revoked', color: 'danger' });
+            this.http
+              .delete(`${environment.apiBaseUrl}/v1/apikeys/${keyToRevoke.id}`)
+              .subscribe({
+                next: () => {
+                  this.apiKeys = this.apiKeys.filter(
+                    (k) => k.id !== keyToRevoke.id,
+                  );
+                  this.toastService.present({
+                    message: 'API key revoked',
+                    color: 'danger',
+                  });
+                },
+                error: (error: HttpErrorResponse) => {
+                  let message = 'Failed to revoke API key';
+                  if (error.status === 404) {
+                    message = 'API key not found';
+                  } else if (error.status === 401) {
+                    message = 'Unauthorized';
+                  }
+                  this.toastService.present({ message, color: 'danger' });
+                },
+              });
           },
         },
       ],
