@@ -33,6 +33,18 @@ export interface ApiKey {
   lastUsedAt: Date | null;
 }
 
+interface CreateApiKeyResponse {
+  details: {
+    id: number;
+    user_id: number;
+    label: string;
+    active: boolean;
+    rate_rpm: number;
+    created_at: string;
+  };
+  key: string;
+}
+
 @Component({
   selector: 'app-api-keys',
   templateUrl: './api-keys.component.html',
@@ -92,17 +104,35 @@ export class ApiKeysComponent implements OnInit {
 
     const { data, role } = await modal.onWillDismiss();
 
-    if (role === 'confirm') {
-      const keyString = `sk_live_${Math.random().toString(36).substring(2)}`;
-      const newKey: ApiKey = {
-        label: data.name || 'New API Key',
-        key: keyString,
-        prefix: this.maskKey(keyString),
-        createdAt: new Date(),
-        lastUsedAt: null,
-      };
-      this.apiKeys = [...this.apiKeys, newKey];
-      this.toastService.present({ message: 'API key created successfully', color: 'success' });
+    if (role === 'confirm' && data?.name) {
+      this.http
+        .post<CreateApiKeyResponse>(`${environment.apiBaseUrl}/v1/apikeys`, {
+          label: data.name,
+        })
+        .subscribe({
+          next: async (res) => {
+            const keyString = res.key;
+            const details = res.details;
+            const newKey: ApiKey = {
+              label: details.label,
+              key: keyString,
+              prefix: this.maskKey(keyString),
+              createdAt: new Date(details.created_at),
+              lastUsedAt: null,
+            };
+            this.apiKeys = [...this.apiKeys, newKey];
+            await this.presentKeyAlert(keyString);
+            this.toastService.present({
+              message: 'API key created successfully',
+              color: 'success',
+            });
+          },
+          error: () =>
+            this.toastService.present({
+              message: 'Failed to create API key',
+              color: 'danger',
+            }),
+        });
     }
   }
 
@@ -128,5 +158,20 @@ export class ApiKeysComponent implements OnInit {
   async copyKey(key: string) {
     await Clipboard.write({ string: key });
     this.toastService.present({ message: 'API key copied to clipboard' });
+  }
+
+  private async presentKeyAlert(key: string) {
+    const alert = await this.alertCtrl.create({
+      header: 'API Key Created',
+      message: `Please copy and store your new API key:<br><code>${key}</code>`,
+      buttons: [
+        {
+          text: 'Copy',
+          handler: () => this.copyKey(key),
+        },
+        { text: 'Close', role: 'cancel' },
+      ],
+    });
+    await alert.present();
   }
 }
