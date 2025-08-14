@@ -34,7 +34,6 @@ import { BrandLogoComponent } from 'src/app/shared/components/brand-logo/brand-l
     IonInput,
     IonButton,
     IonSpinner,
-    IonIcon,
     IonNote,
     CardComponent,
     BrandLogoComponent,
