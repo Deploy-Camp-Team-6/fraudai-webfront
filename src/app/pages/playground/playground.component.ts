@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -55,6 +55,7 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
   public modelSelectorService = inject(ModelSelectorService);
   public apiKeyService = inject(ApiKeyService);
   private http = inject(HttpClient);
+  private cdr = inject(ChangeDetectorRef);
 
   public availableModels: Model[] = [];
   public selectedModelId: string | null = null;
@@ -155,6 +156,7 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
           2,
         );
         this.isLoading = false;
+        this.cdr.markForCheck();
       }, 800 + Math.random() * 500);
       return;
     }
@@ -169,6 +171,7 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
             this.responseStatus = `${res.status} ${res.statusText}`;
             this.responseBody = JSON.stringify(res.body, null, 2);
             this.isLoading = false;
+            this.cdr.markForCheck();
           },
           error: err => {
             const endTime = Date.now();
@@ -180,6 +183,7 @@ export class PlaygroundComponent implements OnInit, OnDestroy {
                 : JSON.stringify(err.error, null, 2)
               : err.message;
             this.isLoading = false;
+            this.cdr.markForCheck();
           },
         }),
     );
