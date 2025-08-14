@@ -79,5 +79,6 @@ describe('PlaygroundComponent', () => {
     });
 
     req.flush({});
+    expect(component.isLoading).toBeFalse();
   });
 });
