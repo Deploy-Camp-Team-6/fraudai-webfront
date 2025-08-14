@@ -68,30 +68,33 @@ export class DocsPage implements OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  generateSnippets(model: Model | null, apiKey: string | null) {
-    if (!model) {
-      return;
-    }
-    const endpoint = `${environment.apiBaseUrl}/v1/detect`;
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey || 'YOUR_API_KEY'}`,
-    };
-    const body = {
-      model: model.id,
-      data: {
-        // Example data structure
-        amount: 120.50,
-        currency: 'USD',
-        user_id: 'user-12345',
-      },
-    };
+    generateSnippets(model: Model | null, apiKey: string | null) {
+      if (!model) {
+        return;
+      }
+      const endpoint = 'https://api.fraudai.cloud/v1/inference/predict';
+      const headers = {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey || 'YOUR_API_KEY',
+      };
+      const body = {
+        model: model.id,
+        features: {
+          transaction_id: 9876543210,
+          amount: 200.12,
+          merchant_type: 'electronics',
+          device_type: 'laptop',
+        },
+      };
 
-    const bodyString = JSON.stringify(body, null, 2);
+      const bodyString = JSON.stringify(body);
 
-    this.curlSnippet = `curl -X POST ${endpoint} \\\n-H "Content-Type: application/json" \\\n-H "Authorization: Bearer ${apiKey || 'YOUR_API_KEY'}" \\\n-d '${bodyString}'`;
+      this.curlSnippet = `curl -X POST '${endpoint}' \\
+  -H 'Content-Type: application/json' \\
+  -H 'x-api-key: ${apiKey || 'YOUR_API_KEY'}' \\
+  -d '${bodyString}'`;
 
-    this.fetchSnippet = `fetch('${endpoint}', {
+      this.fetchSnippet = `fetch('${endpoint}', {
   method: 'POST',
   headers: ${JSON.stringify(headers, null, 2)},
   body: JSON.stringify(${JSON.stringify(body, null, 2)})
@@ -99,14 +102,14 @@ export class DocsPage implements OnDestroy {
 .then(response => response.json())
 .then(data => console.log(data));`;
 
-    this.pythonSnippet = `import requests
+      this.pythonSnippet = `import requests
 import json
 
 url = "${endpoint}"
 headers = ${JSON.stringify(headers, null, 2)}
-data = ${bodyString}
+data = ${JSON.stringify(body, null, 2)}
 
 response = requests.post(url, headers=headers, data=json.dumps(data))
 print(response.json())`;
-  }
+    }
 }

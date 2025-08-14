@@ -26,9 +26,9 @@
         <p>
           To use the Fraud AI API, you must be authenticated. Authentication is handled via API keys. You can generate and manage your API keys from the <a routerLink="/keys">API Keys dashboard</a>.
         </p>
-        <p>
-          All API requests must include an <code>Authorization</code> header with your API key as a Bearer token.
-        </p>
+          <p>
+            All API requests must include an <code>x-api-key</code> header with your API key.
+          </p>
         <app-callout type="warn">
           <p><strong>Keep your API keys secure!</strong> Do not expose them in client-side code. All API requests should be made from a secure server-side environment.</p>
         </app-callout>
@@ -36,7 +36,7 @@
 
       <section id="api-reference">
         <h2>API Reference</h2>
-        <p>Our API has a single primary endpoint for fraud detection: <code>POST /v1/detect</code>. You send transaction or event data to this endpoint, and our models will return a risk score in real-time.</p>
+        <p>Our API has a single primary endpoint for fraud detection: <code>POST /v1/inference/predict</code>. You send transaction or event data to this endpoint, and our models will return a risk score in real-time.</p>
 
         <h3>Example Request</h3>
         <p>Below is an example of how to make a request to the detection endpoint using various languages. Select your preferred language to see the corresponding code snippet.</p>
