@@ -14,7 +14,7 @@
         <table>
           <thead>
             <tr>
-              <th>Name</th>
+              <th>Label</th>
               <th>Key</th>
               <th>Created</th>
               <th>Last Used</th>
@@ -23,7 +23,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let key of apiKeys">
-              <td>{{ key.name }}</td>
+              <td>{{ key.label }}</td>
               <td>
                 <div class="key-cell">
                   <span>{{ key.prefix }}</span>
@@ -33,7 +33,7 @@
                 </div>
               </td>
               <td>{{ key.createdAt | date:'mediumDate' }}</td>
-              <td>{{ key.lastUsed ? (key.lastUsed | date:'mediumDate') : 'Never' }}</td>
+              <td>{{ key.lastUsedAt ? (key.lastUsedAt | date:'mediumDate') : 'Never' }}</td>
               <td>
                 <ion-button fill="clear" size="small" color="danger" (click)="revokeKey(key)">
                   <ion-icon slot="icon-only" name="trash"></ion-icon>

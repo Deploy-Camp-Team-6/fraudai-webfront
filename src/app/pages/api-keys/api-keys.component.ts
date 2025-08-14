@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import {
   IonContent,
@@ -12,13 +12,25 @@ import { ToastService } from 'src/app/core/services/toast.service';
 import { GenerateKeyModalComponent } from './generate-key-modal/generate-key-modal.component';
 import { CardComponent } from 'src/app/shared/components/card/card.component';
 import { Clipboard } from '@capacitor/clipboard';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+
+interface ApiKeyResponse {
+  id: number;
+  label: string;
+  key: string;
+  active: boolean;
+  rate_rpm: number;
+  last_used_at: string | null;
+  created_at: string;
+}
 
 export interface ApiKey {
-  name: string;
+  label: string;
   key: string;
   prefix: string;
   createdAt: Date;
-  lastUsed: Date | null;
+  lastUsedAt: Date | null;
 }
 
 @Component({
@@ -35,18 +47,41 @@ export interface ApiKey {
     CardComponent,
   ],
 })
-export class ApiKeysComponent {
-  public apiKeys: ApiKey[] = [
-    { name: 'My First Key', key: 'sk_live_123abcde', prefix: 'sk_live_...', createdAt: new Date(), lastUsed: new Date(Date.now() - 1000 * 60 * 60 * 24) },
-    { name: 'Marketing Campaign Key', key: 'sk_live_456fghij', prefix: 'sk_live_...', createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7), lastUsed: null },
-  ];
+export class ApiKeysComponent implements OnInit {
+  public apiKeys: ApiKey[] = [];
 
   private alertCtrl = inject(AlertController);
   private modalCtrl = inject(ModalController);
   private toastService = inject(ToastService);
+  private http = inject(HttpClient);
 
   constructor() {
     addIcons({ add, trash, eye, copyOutline });
+  }
+
+  ngOnInit() {
+    this.loadApiKeys();
+  }
+
+  private loadApiKeys() {
+    this.http
+      .get<ApiKeyResponse[]>(`${environment.apiBaseUrl}/v1/apikeys`)
+      .subscribe({
+        next: (keys) =>
+          (this.apiKeys = keys.map((k) => ({
+            label: k.label,
+            key: k.key,
+            prefix: this.maskKey(k.key),
+            createdAt: new Date(k.created_at),
+            lastUsedAt: k.last_used_at ? new Date(k.last_used_at) : null,
+          })) ),
+        error: () =>
+          this.toastService.present({ message: 'Failed to load API keys', color: 'danger' }),
+      });
+  }
+
+  private maskKey(key: string): string {
+    return `${key.slice(0, 8)}...${key.slice(-4)}`;
   }
 
   async createKey() {
@@ -58,12 +93,13 @@ export class ApiKeysComponent {
     const { data, role } = await modal.onWillDismiss();
 
     if (role === 'confirm') {
+      const keyString = `sk_live_${Math.random().toString(36).substring(2)}`;
       const newKey: ApiKey = {
-        name: data.name || 'New API Key',
-        key: `sk_live_${Math.random().toString(36).substring(2)}`,
-        prefix: `sk_live_...${Math.random().toString(36).substring(9, 13)}`,
+        label: data.name || 'New API Key',
+        key: keyString,
+        prefix: this.maskKey(keyString),
         createdAt: new Date(),
-        lastUsed: null,
+        lastUsedAt: null,
       };
       this.apiKeys = [...this.apiKeys, newKey];
       this.toastService.present({ message: 'API key created successfully', color: 'success' });
@@ -73,7 +109,7 @@ export class ApiKeysComponent {
   async revokeKey(keyToRevoke: ApiKey) {
     const alert = await this.alertCtrl.create({
       header: 'Revoke API Key',
-      message: `Are you sure you want to revoke the key "${keyToRevoke.name}"? This action is permanent.`,
+      message: `Are you sure you want to revoke the key "${keyToRevoke.label}"? This action is permanent.`,
       buttons: [
         { text: 'Cancel', role: 'cancel' },
         {
