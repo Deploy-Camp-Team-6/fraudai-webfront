@@ -138,11 +138,13 @@ pre code {
   max-width: 1280px;
   margin-inline: auto;
   padding-inline: var(--space-6);
+  padding-block-end: var(--space-8);
 }
 
 @media (max-width: 768px) {
   .app-container {
     padding-inline: var(--space-4);
+    padding-block-end: var(--space-8);
   }
 }
 
