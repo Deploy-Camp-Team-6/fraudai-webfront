@@ -1,53 +1,52 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import {
   IonHeader,
   IonToolbar,
-  IonTitle,
   IonButtons,
-  IonButton,
   IonMenuButton,
-  IonBadge,
-  IonToggle,
+  IonButton,
   IonIcon,
 } from '@ionic/angular/standalone';
-import { ApiKeyService } from 'src/app/core/services/api-key.service';
+
 import { AuthService } from 'src/app/core/services/auth.service';
-import { ThemeService } from 'src/app/core/services/theme.service';
+import { ApiKeyService } from 'src/app/core/services/api-key.service';
+import { BrandLogoComponent } from 'src/app/shared/components/brand-logo/brand-logo.component';
+import { ThemeToggleComponent } from 'src/app/shared/components/theme-toggle/theme-toggle.component';
+import { addIcons } from 'ionicons';
+import { logInOutline, logOutOutline, keyOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-layout-header',
-  standalone: true,
   templateUrl: './layout-header.component.html',
   styleUrls: ['./layout-header.component.scss'],
+  standalone: true,
   imports: [
     CommonModule,
     RouterLink,
     IonHeader,
     IonToolbar,
-    IonTitle,
     IonButtons,
-    IonButton,
     IonMenuButton,
-    IonBadge,
-    IonToggle,
+    IonButton,
     IonIcon,
+    BrandLogoComponent,
+    ThemeToggleComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutHeaderComponent {
-  apiKeyService = inject(ApiKeyService);
-  authService = inject(AuthService);
-  themeService = inject(ThemeService);
+  public authService = inject(AuthService);
+  public apiKeyService = inject(ApiKeyService);
   private router = inject(Router);
 
+  constructor() {
+    addIcons({ logInOutline, logOutOutline, keyOutline });
+  }
+
   logout() {
-    this.authService.signOut(false);
+    this.authService.signOut();
     this.router.navigate(['/']);
   }
-
-  toggleTheme(event: CustomEvent) {
-    this.themeService.setDark(event.detail.checked);
-  }
 }
-

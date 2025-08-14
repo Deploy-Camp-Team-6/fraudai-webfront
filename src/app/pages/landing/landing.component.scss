@@ -1,81 +1,217 @@
-ion-content, .hero {
-  height: 100%;
+/*
+ * Landing Page Styles
+ * Onyx Neon ~ Design System
+ */
+
+// Make sure content can go edge-to-edge
+ion-content {
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
 }
 
-.hero {
-  display: flex;
-  align-items: center;
-  padding: 2rem 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
+// Common Section Styles
+.features-section, .how-it-works-section {
+  padding-block: var(--space-8);
 }
 
-.hero-text {
+.section-title {
   text-align: center;
-}
-
-.hero-text h1 {
   font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--ion-color-primary);
+  margin-bottom: var(--space-3);
 }
 
-.hero-text p {
-  font-size: 1.125rem;
-  margin-top: 1rem;
-}
-
-.cta-buttons {
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.hero-image {
-  margin-top: 2rem;
+.section-subtitle {
   text-align: center;
+  color: hsl(var(--text-1-hsl));
+  font-size: 1.125rem;
+  max-width: 60ch;
+  margin-inline: auto;
+  margin-bottom: var(--space-7);
 }
 
-.hero-image ion-img {
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-}
+// Hero Section
+.hero-section {
+  position: relative;
+  padding: 8rem var(--space-4) 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  border-bottom: 1px solid hsl(var(--border-0-hsl));
 
-@media (min-width: 768px) {
-  .hero {
-    padding: 4rem 2rem;
+  .hero-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: hsl(var(--surface-0-hsl));
+    // The theme-adaptive radial gradient
+    background-image: radial-gradient(circle at 50% 0%, hsl(var(--brand-primary-hsl) / 0.1), transparent 40%);
+    :root[data-theme="dark"] & {
+      background-image: radial-gradient(circle at 50% 0%, hsl(var(--brand-primary-hsl) / 0.2), transparent 50%);
+    }
   }
 
-  .hero-text {
-    text-align: left;
+  .hero-content {
+    position: relative;
+    z-index: 1;
   }
 
-  .hero-text h1 {
-    font-size: 4rem;
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: hsl(var(--text-0-hsl));
+    margin-bottom: var(--space-4);
   }
 
-  .hero-text p {
+  .hero-subtitle {
     font-size: 1.25rem;
+    color: hsl(var(--text-1-hsl));
+    max-width: 65ch;
+    margin-inline: auto;
+    margin-bottom: var(--space-6);
   }
 
-  .cta-buttons {
-    flex-direction: row;
-    justify-content: flex-start;
+  .hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
   }
 
-  .hero-image {
-    margin-top: 0;
+  .cta-primary {
+    --background: hsl(var(--brand-primary-hsl));
+    --background-hover: hsl(var(--brand-primary-hsl) / 0.9);
+    --color: #fff;
+    --box-shadow: var(--shadow-soft-glow);
+  }
+
+  .cta-secondary {
+    --border-color: hsl(var(--text-2-hsl));
+    --color: hsl(var(--text-1-hsl));
+    --color-hover: hsl(var(--text-0-hsl));
+    --border-color-hover: hsl(var(--text-1-hsl));
   }
 }
 
-@media (min-width: 1024px) {
-  .hero-text h1 {
-    font-size: 4.5rem;
+// Features Section
+.features-section {
+  app-card {
+    ion-icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-4);
+    }
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: var(--space-2);
+      color: hsl(var(--text-0-hsl));
+    }
+    p {
+      font-size: 1rem;
+      color: hsl(var(--text-1-hsl));
+      margin-bottom: 0;
+    }
+  }
+}
+
+// How It Works Section
+.how-it-works-section {
+  background: hsl(var(--surface-1-hsl));
+  border-block: 1px solid hsl(var(--border-0-hsl));
+
+  .steps-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-6);
   }
 
-  .hero-text p {
-    font-size: 1.5rem;
+  .step {
+    text-align: center;
+    flex: 1;
+  }
+
+  .step-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+    background: hsl(var(--brand-primary-hsl));
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: var(--space-4);
+    border: 3px solid hsl(var(--surface-0-hsl));
+    box-shadow: 0 0 0 1px hsl(var(--brand-primary-hsl));
+  }
+
+  .step h3 {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .step-separator {
+    flex-grow: 1;
+    height: 1px;
+    background: hsl(var(--border-0-hsl));
+    margin-top: 24px;
+    display: block;
+  }
+}
+
+// Footer
+.app-footer {
+  background: hsl(var(--surface-1-hsl));
+  padding-block: var(--space-6);
+  font-size: 0.9rem;
+  color: hsl(var(--text-2-hsl));
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: hsl(var(--text-1-hsl));
+  }
+
+  .footer-links {
+    display: flex;
+    gap: var(--space-5);
+    a {
+      color: hsl(var(--text-2-hsl));
+      &:hover {
+        color: hsl(var(--text-0-hsl));
+      }
+    }
+  }
+}
+
+// Responsive Adjustments
+@media (max-width: 768px) {
+  .section-title { font-size: 2rem; }
+  .hero-section { padding-block: 6rem; }
+  .hero-title { font-size: 2.5rem; }
+  .hero-subtitle { font-size: 1.125rem; }
+
+  .how-it-works-section .steps-container {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+  }
+  .how-it-works-section .step-separator {
+    display: none;
   }
 }

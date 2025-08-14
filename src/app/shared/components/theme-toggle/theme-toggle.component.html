@@ -1,0 +1,14 @@
+<button
+  class="theme-toggle"
+  (click)="themeService.toggleTheme()"
+  [attr.aria-pressed]="themeService.theme() === 'dark'"
+  [title]="'Toggle ' + (themeService.theme() === 'dark' ? 'light' : 'dark') + ' mode'"
+  aria-label="Toggle theme"
+>
+  <ng-container *ngIf="themeService.theme() === 'light'; else darkModeIcon">
+    <ion-icon name="sunny-outline" aria-hidden="true"></ion-icon>
+  </ng-container>
+  <ng-template #darkModeIcon>
+    <ion-icon name="moon-outline" aria-hidden="true"></ion-icon>
+  </ng-template>
+</button>

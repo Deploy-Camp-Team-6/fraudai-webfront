@@ -1,38 +1,49 @@
-<ion-content class="ion-padding">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12">
-        <h1>Documentation</h1>
-        <p>
-          Welcome to the Fraud AI API documentation. Here you will find all the information you need to integrate our fraud detection service into your applications.
-        </p>
-      </ion-col>
-    </ion-row>
+<ion-content [fullscreen]="true">
+  <div class="docs-container app-container">
+    <!-- Sidebar -->
+    <nav class="docs-sidebar">
+      <ul class="sidebar-nav-list">
+        <li *ngFor="let section of sections">
+          <a [href]="'#' + section.id" class="sidebar-link">{{ section.title }}</a>
+        </li>
+      </ul>
+    </nav>
 
-    <ion-row>
-      <ion-col size="12">
-        <h2>Getting Started</h2>
+    <!-- Main Content -->
+    <article class="docs-content">
+      <section id="introduction">
+        <h1>Introduction</h1>
         <p>
-          To get started, you need to obtain an API key from the API Keys page. Once you have your key, you can start making requests to our API endpoints.
+          Welcome to the Fraud AI API documentation. This is your guide to integrating our powerful fraud detection service into your applications. Our goal is to provide a seamless, developer-first experience.
         </p>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col size="12">
-        <h2>API Endpoints</h2>
         <p>
-          Our API has a single endpoint for fraud detection: <code>POST /api/v1/detect</code>
+          Our API is built on standard HTTP principles and returns JSON-encoded responses. You can use any HTTP client in any language to interact with the API.
         </p>
-      </ion-col>
-    </ion-row>
+      </section>
 
-    <ion-row>
-      <ion-col size="12">
+      <section id="authentication">
+        <h2>Authentication</h2>
+        <p>
+          To use the Fraud AI API, you must be authenticated. Authentication is handled via API keys. You can generate and manage your API keys from the <a routerLink="/keys">API Keys dashboard</a>.
+        </p>
+        <p>
+          All API requests must include an <code>Authorization</code> header with your API key as a Bearer token.
+        </p>
+        <app-callout type="warn">
+          <p><strong>Keep your API keys secure!</strong> Do not expose them in client-side code. All API requests should be made from a secure server-side environment.</p>
+        </app-callout>
+      </section>
+
+      <section id="api-reference">
+        <h2>API Reference</h2>
+        <p>Our API has a single primary endpoint for fraud detection: <code>POST /v1/detect</code>. You send transaction or event data to this endpoint, and our models will return a risk score in real-time.</p>
+
         <h3>Example Request</h3>
+        <p>Below is an example of how to make a request to the detection endpoint using various languages. Select your preferred language to see the corresponding code snippet.</p>
+
         <ion-segment [(ngModel)]="selectedLanguage" (ionChange)="selectedLanguage = ($event.detail.value || 'curl')">
           <ion-segment-button value="curl">cURL</ion-segment-button>
-          <ion-segment-button value="fetch">Fetch</ion-segment-button>
+          <ion-segment-button value="fetch">JS (Fetch)</ion-segment-button>
           <ion-segment-button value="python">Python</ion-segment-button>
         </ion-segment>
 
@@ -41,8 +52,15 @@
           <app-code-block *ngSwitchCase="'fetch'" [code]="fetchSnippet" language="javascript"></app-code-block>
           <app-code-block *ngSwitchCase="'python'" [code]="pythonSnippet" language="python"></app-code-block>
         </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+      </section>
 
+      <section id="errors">
+        <h2>Errors</h2>
+        <p>The API uses conventional HTTP response codes to indicate the success or failure of a request. Codes in the <code>2xx</code> range indicate success, while codes in the <code>4xx</code> and <code>5xx</code> ranges indicate an error.</p>
+        <app-callout type="info">
+          <p>Our error responses include a JSON body with a <code>code</code> and <code>message</code> field to help you debug.</p>
+        </app-callout>
+      </section>
+    </article>
+  </div>
+</ion-content>

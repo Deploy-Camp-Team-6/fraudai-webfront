@@ -1,30 +1,112 @@
-ion-grid {
-  ion-row + ion-row {
-    margin-top: 2rem;
+:host {
+  --sidebar-width: 240px;
+}
+
+ion-content {
+  // Ensure the content can scroll to the top without being obscured by the main header
+  --padding-top: var(--space-6);
+}
+
+.docs-container {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-7);
+}
+
+// Sidebar Navigation
+.docs-sidebar {
+  position: sticky;
+  top: calc(64px + var(--space-6)); // 64px is header height
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  height: calc(100vh - 64px - var(--space-6) * 2);
+  overflow-y: auto;
+}
+
+.sidebar-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.sidebar-link {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  color: hsl(var(--text-1-hsl));
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease, background-color 0.2s ease;
+
+  &:hover {
+    background-color: hsl(var(--surface-1-hsl));
+    color: hsl(var(--text-0-hsl));
   }
 
-  h1,
-  h2,
-  h3 {
-    font-family: var(--ion-font-family, inherit);
-    color: var(--ion-color-primary);
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-  }
-
-  p code {
-    background: var(--ion-color-step-100);
-    color: var(--ion-color-primary);
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    font-family: var(--ion-font-family-monospace, monospace);
-  }
-
-  ::ng-deep app-code-block .code-block-container {
-    background: var(--ion-color-step-100);
-    color: var(--ion-text-color);
-    border-radius: 8px;
-    font-family: var(--ion-font-family-monospace, monospace);
+  // Active state will be handled by an intersection observer later if needed
+  &.active {
+    background-color: hsl(var(--surface-1-hsl));
+    color: hsl(var(--brand-primary-hsl));
+    font-weight: 600;
   }
 }
 
+// Main Content Area
+.docs-content {
+  flex-grow: 1;
+  min-width: 0; // Prevents flexbox overflow issues with wide code blocks
+
+  section {
+    padding-bottom: var(--space-6);
+    margin-bottom: var(--space-6);
+    border-bottom: 1px solid hsl(var(--border-0-hsl));
+
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    h1, h2, h3 {
+      scroll-margin-top: calc(64px + var(--space-4)); // Offset for sticky header
+    }
+  }
+
+  h1 {
+    margin-bottom: var(--space-5);
+  }
+
+  h2 {
+    margin-top: var(--space-7);
+    margin-bottom: var(--space-4);
+  }
+}
+
+// Custom styling for ion-segment
+ion-segment {
+  --background: hsl(var(--surface-1-hsl));
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-4);
+  border: 1px solid hsl(var(--border-0-hsl));
+  padding: var(--space-1);
+}
+
+ion-segment-button {
+  --indicator-color: hsl(var(--surface-0-hsl));
+  --color: hsl(var(--text-1-hsl));
+  --color-checked: hsl(var(--text-0-hsl));
+  --indicator-box-shadow: var(--shadow-sm);
+  --border-radius: var(--radius-sm);
+  font-weight: 500;
+  text-transform: none;
+}
+
+// Responsive adjustments
+@media (max-width: 992px) {
+  .docs-sidebar {
+    display: none; // Hide sidebar on smaller screens
+  }
+}

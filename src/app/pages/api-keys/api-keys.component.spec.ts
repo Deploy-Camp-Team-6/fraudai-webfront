@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular/standalone';
 import { ApiKeysComponent } from './api-keys.component';
 import { ToastService } from 'src/app/core/services/toast.service';
 
@@ -12,6 +12,7 @@ describe('ApiKeysComponent', () => {
       imports: [ApiKeysComponent],
       providers: [
         { provide: AlertController, useValue: { create: () => Promise.resolve({ present: () => Promise.resolve() }) } },
+        { provide: ModalController, useValue: {} },
         { provide: ToastService, useValue: { present: () => Promise.resolve() } },
       ],
     }).compileComponents();

@@ -1,0 +1,47 @@
+:host {
+  display: block;
+  border-radius: var(--radius-lg);
+  border-left: 4px solid;
+  padding: var(--space-4);
+  margin-block: var(--space-5);
+}
+
+.callout-container {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.icon-container {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin-top: 2px; // Minor alignment tweak
+}
+
+.content-container {
+  flex: 1;
+}
+
+:host([data-type="info"]) {
+  background-color: hsl(var(--brand-primary-hsl) / 0.05);
+  border-color: hsl(var(--brand-primary-hsl) / 0.5);
+  .icon-container {
+    color: hsl(var(--brand-primary-hsl));
+  }
+}
+
+:host([data-type="success"]) {
+  background-color: hsl(var(--color-success-hsl) / 0.05);
+  border-color: hsl(var(--color-success-hsl) / 0.5);
+  .icon-container {
+    color: hsl(var(--color-success-hsl));
+  }
+}
+
+:host([data-type="warn"]) {
+  background-color: hsl(var(--color-warning-hsl) / 0.1);
+  border-color: hsl(var(--color-warning-hsl) / 0.6);
+  .icon-container {
+    color: hsl(var(--color-warning-hsl));
+  }
+}

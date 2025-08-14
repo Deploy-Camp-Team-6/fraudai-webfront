@@ -1,91 +1,180 @@
-// For information on how to create your own theme, please see:
-// http://ionicframework.com/docs/theming/
-
 /*
- * Defines the design tokens for the application.
- * The palette aims to provide accessible contrast in both
- * light and dark modes while remaining brand neutral.
+ * Onyx Neon ~ Design Token System
+ *
+ * This file defines the design tokens for the application, following the
+ * Onyx Neon design direction. It uses a modern HSL-based system for
+ * flexibility and is the single source of truth for all stylistic values.
  */
 
 :root {
-  /* Light mode palette */
-  --ion-color-primary: #0052cc;
-  --ion-color-primary-rgb: 0, 82, 204;
-  --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #004ab8;
-  --ion-color-primary-tint: #1a63d1;
+  /*
+   * ===========================================================================
+   * Design Tokens
+   * ===========================================================================
+   */
 
-  --ion-color-secondary: #ff9900;
-  --ion-color-secondary-rgb: 255, 153, 0;
-  --ion-color-secondary-contrast: #000000;
-  --ion-color-secondary-contrast-rgb: 0, 0, 0;
-  --ion-color-secondary-shade: #e68a00;
-  --ion-color-secondary-tint: #ffa31a;
+  /* Spacing & Sizing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
 
-  --ion-color-success: #2e7d32;
-  --ion-color-success-rgb: 46, 125, 50;
-  --ion-color-success-contrast: #ffffff;
-  --ion-color-success-contrast-rgb: 255, 255, 255;
-  --ion-color-success-shade: #276d2b;
-  --ion-color-success-tint: #428b45;
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
 
-  --ion-color-warning: #fbc02d;
-  --ion-color-warning-rgb: 251, 192, 45;
-  --ion-color-warning-contrast: #000000;
-  --ion-color-warning-contrast-rgb: 0, 0, 0;
-  --ion-color-warning-shade: #ddaa28;
-  --ion-color-warning-tint: #fbc745;
+  /* Shadows */
+  --shadow-sm: 0 1px 2px hsl(var(--text-0-hsl) / 0.08);
+  --shadow-md: 0 4px 6px hsl(var(--text-0-hsl) / 0.1), 0 1px 3px hsl(var(--text-0-hsl) / 0.08);
+  --shadow-lg: 0 10px 15px hsl(var(--text-0-hsl) / 0.1), 0 4px 6px hsl(var(--text-0-hsl) / 0.08);
+  --shadow-soft-glow: 0 0 40px hsl(var(--brand-primary-hsl) / 0.3);
 
-  --ion-color-danger: #d32f2f;
-  --ion-color-danger-rgb: 211, 47, 47;
-  --ion-color-danger-contrast: #ffffff;
-  --ion-color-danger-contrast-rgb: 255, 255, 255;
-  --ion-color-danger-shade: #b92a2a;
-  --ion-color-danger-tint: #d74444;
+  /*
+   * ===========================================================================
+   * Color Tokens (Light Theme)
+   * ===========================================================================
+   */
 
-  --ion-background-color: #ffffff;
-  --ion-text-color: #1a1a1a;
+  /* Brand: A vibrant, slightly desaturated teal for the "neon" effect. */
+  --brand-primary-hsl: 170 85% 40%;
+  --brand-secondary-hsl: 280 85% 55%; /* Violet accent */
+
+  /* Surfaces: Off-white/light gray for a clean, modern feel. */
+  --surface-0-hsl: 220 25% 98%; /* Main background */
+  --surface-1-hsl: 220 20% 94%; /* Cards, panels */
+  --surface-2-hsl: 220 20% 88%; /* Hover, active states */
+
+  /* Text & Borders */
+  --text-0-hsl: 222 47% 11%; /* Headings, primary text */
+  --text-1-hsl: 220 15% 40%; /* Subtitles, secondary text */
+  --text-2-hsl: 220 12% 55%; /* Placeholders, disabled text */
+  --border-0-hsl: 220 20% 88%;
+
+  /* Semantic Colors */
+  --color-success-hsl: 140 60% 45%;
+  --color-warning-hsl: 40 90% 60%;
+  --color-danger-hsl: 0 80% 60%;
 }
 
-.dark {
-  /* Dark mode palette */
-  --ion-color-primary: #4dabf7;
-  --ion-color-primary-rgb: 77, 171, 247;
-  --ion-color-primary-contrast: #000000;
-  --ion-color-primary-contrast-rgb: 0, 0, 0;
-  --ion-color-primary-shade: #4396d9;
-  --ion-color-primary-tint: #5fb3f8;
 
-  --ion-color-secondary: #ffa938;
-  --ion-color-secondary-rgb: 255, 169, 56;
-  --ion-color-secondary-contrast: #000000;
-  --ion-color-secondary-contrast-rgb: 0, 0, 0;
-  --ion-color-secondary-shade: #e09632;
-  --ion-color-secondary-tint: #ffb24c;
+/*
+ * =============================================================================
+ * Dark Theme Overrides
+ * =============================================================================
+ */
+:root[data-theme="dark"] {
+  /* Brand: Increase saturation and lightness for pop on dark backgrounds */
+  --brand-primary-hsl: 170 90% 50%;
+  --brand-secondary-hsl: 280 90% 65%;
 
-  --ion-color-success: #42b549;
-  --ion-color-success-rgb: 66, 181, 73;
-  --ion-color-success-contrast: #000000;
-  --ion-color-success-contrast-rgb: 0, 0, 0;
-  --ion-color-success-shade: #3aa044;
-  --ion-color-success-tint: #54bd5b;
+  /* Surfaces: Deep, cool slate grays */
+  --surface-0-hsl: 220 15% 10%; /* #161a21 - Main background */
+  --surface-1-hsl: 220 18% 14%; /* #1e2430 - Cards, panels ("soft glass") */
+  --surface-2-hsl: 220 16% 20%; /* #2a3140 - Hover, active states */
 
-  --ion-color-warning: #ffd54f;
-  --ion-color-warning-rgb: 255, 213, 79;
-  --ion-color-warning-contrast: #000000;
-  --ion-color-warning-contrast-rgb: 0, 0, 0;
-  --ion-color-warning-shade: #e0bc45;
-  --ion-color-warning-tint: #ffd966;
-
-  --ion-color-danger: #ef5350;
-  --ion-color-danger-rgb: 239, 83, 80;
-  --ion-color-danger-contrast: #000000;
-  --ion-color-danger-contrast-rgb: 0, 0, 0;
-  --ion-color-danger-shade: #d74846;
-  --ion-color-danger-tint: #f0645f;
-
-  --ion-background-color: #121212;
-  --ion-text-color: #f5f5f5;
+  /* Text & Borders */
+  --text-0-hsl: 220 20% 92%;
+  --text-1-hsl: 220 15% 70%;
+  --text-2-hsl: 220 12% 55%;
+  --border-0-hsl: 220 15% 25%;
 }
 
+/*
+ * Fallback for OS-level preference if no explicit theme is set via toggle.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    /* Brand */
+    --brand-primary-hsl: 170 90% 50%;
+    --brand-secondary-hsl: 280 90% 65%;
+    /* Surfaces */
+    --surface-0-hsl: 220 15% 10%;
+    --surface-1-hsl: 220 18% 14%;
+    --surface-2-hsl: 220 16% 20%;
+    /* Text & Borders */
+    --text-0-hsl: 220 20% 92%;
+    --text-1-hsl: 220 15% 70%;
+    --text-2-hsl: 220 12% 55%;
+    --border-0-hsl: 220 15% 25%;
+  }
+}
+
+
+/*
+ * =============================================================================
+ * Map Design Tokens to Ionic Variables
+ * =============================================================================
+ * This ensures all Ionic components automatically adopt the new theme.
+ */
+:root {
+  /* Global */
+  --ion-background-color: hsl(var(--surface-0-hsl));
+  --ion-text-color: hsl(var(--text-1-hsl));
+  --ion-border-color: hsl(var(--border-0-hsl));
+  --ion-item-background: hsl(var(--surface-1-hsl));
+
+  /* Primary Color */
+  --ion-color-primary: hsl(var(--brand-primary-hsl));
+  --ion-color-primary-rgb: var(--brand-primary-hsl);
+  --ion-color-primary-contrast: hsl(var(--surface-0-hsl));
+  --ion-color-primary-contrast-rgb: var(--surface-0-hsl);
+  --ion-color-primary-shade: hsl(var(--brand-primary-hsl) / 85%);
+  --ion-color-primary-tint: hsl(var(--brand-primary-hsl) / 115%);
+
+  /* Secondary Color (Accent) */
+  --ion-color-secondary: hsl(var(--brand-secondary-hsl));
+  --ion-color-secondary-rgb: var(--brand-secondary-hsl);
+  --ion-color-secondary-contrast: hsl(var(--surface-0-hsl));
+  --ion-color-secondary-contrast-rgb: var(--surface-0-hsl);
+  --ion-color-secondary-shade: hsl(var(--brand-secondary-hsl) / 85%);
+  --ion-color-secondary-tint: hsl(var(--brand-secondary-hsl) / 115%);
+
+  /* Semantic Colors */
+  --ion-color-success: hsl(var(--color-success-hsl));
+  --ion-color-success-rgb: var(--color-success-hsl);
+  --ion-color-warning: hsl(var(--color-warning-hsl));
+  --ion-color-warning-rgb: var(--color-warning-hsl);
+  --ion-color-danger: hsl(var(--color-danger-hsl));
+  --ion-color-danger-rgb: var(--color-danger-hsl);
+
+  /* Text Color Mapping */
+  --ion-text-color-rgb: var(--text-1-hsl);
+
+  /* Toolbar */
+  --ion-toolbar-background: hsl(var(--surface-1-hsl));
+  --ion-toolbar-color: hsl(var(--text-0-hsl));
+  --ion-toolbar-border-color: hsl(var(--border-0-hsl));
+
+  /* Card */
+  --ion-card-background: hsl(var(--surface-1-hsl));
+  --ion-card-header-color: hsl(var(--text-0-hsl));
+  --ion-card-subtitle-color: hsl(var(--text-1-hsl));
+  --ion-card-content-color: hsl(var(--text-1-hsl));
+
+  /* List */
+  --ion-list-background: hsl(var(--surface-1-hsl));
+  --ion-list-header-color: hsl(var(--text-0-hsl));
+}
+
+:root[data-theme="dark"] {
+  --ion-color-primary-contrast: hsl(var(--text-0-hsl));
+  --ion-color-primary-contrast-rgb: var(--text-0-hsl);
+  --ion-color-secondary-contrast: hsl(var(--text-0-hsl));
+  --ion-color-secondary-contrast-rgb: var(--text-0-hsl);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ion-color-primary-contrast: hsl(var(--text-0-hsl));
+    --ion-color-primary-contrast-rgb: var(--text-0-hsl);
+    --ion-color-secondary-contrast: hsl(var(--text-0-hsl));
+    --ion-color-secondary-contrast-rgb: var(--text-0-hsl);
+  }
+}

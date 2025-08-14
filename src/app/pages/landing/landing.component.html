@@ -1,20 +1,99 @@
-<ion-content class="ion-padding">
-  <ion-grid class="hero">
-    <ion-row class="ion-align-items-center ion-justify-content-center">
-      <ion-col size="12" size-md="6" class="hero-text">
-        <h1>Welcome to Fraud AI</h1>
-        <p>
-          Leverage the power of artificial intelligence to protect your business from fraudulent activities.
-          Our platform provides real-time analysis and insights to help you make informed decisions.
-        </p>
-        <div class="cta-buttons">
-          <ion-button routerLink="/playground" size="large" color="primary">Get Started</ion-button>
-          <ion-button routerLink="/docs" size="large" color="secondary" fill="outline">Learn More</ion-button>
+<ion-content [fullscreen]="true">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-gradient"></div>
+    <div class="app-container hero-content">
+      <h1 class="hero-title">Detect Fraud, Not False Positives</h1>
+      <p class="hero-subtitle">
+        FraudAI provides developers with powerful, real-time APIs to build sophisticated fraud detection into any application. Secure transactions, verify users, and protect your platform with unparalleled accuracy.
+      </p>
+      <div class="hero-buttons">
+        <ion-button routerLink="/playground" size="large" class="cta-primary">
+          <ion-icon slot="start" name="flash-outline"></ion-icon>
+          Try the Playground
+        </ion-button>
+        <ion-button routerLink="/docs" size="large" fill="outline" class="cta-secondary">
+          <ion-icon slot="start" name="document-text-outline"></ion-icon>
+          Read the Docs
+        </ion-button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Grid Section -->
+  <section class="features-section app-container">
+    <h2 class="section-title">Why Developers Choose FraudAI</h2>
+    <p class="section-subtitle">Focus on building your product. We'll handle the complexity of fraud prevention.</p>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="6" size-lg="4">
+          <app-card class="interactive">
+            <ion-icon name="shield-checkmark-outline" color="primary"></ion-icon>
+            <h3>Real-Time Detection</h3>
+            <p>Analyze transactions and user behavior in milliseconds to catch fraud as it happens.</p>
+          </app-card>
+        </ion-col>
+        <ion-col size="12" size-md="6" size-lg="4">
+          <app-card class="interactive">
+            <ion-icon name="code-slash-outline" color="primary"></ion-icon>
+            <h3>Simple & Powerful API</h3>
+            <p>Integrate with a few lines of code. Our REST API is designed for developer productivity.</p>
+          </app-card>
+        </ion-col>
+        <ion-col size="12" size-md="6" size-lg="4">
+          <app-card class="interactive">
+            <ion-icon name="analytics-outline" color="primary"></ion-icon>
+            <h3>Adaptive Machine Learning</h3>
+            <p>Our models learn from your data to adapt to new fraud patterns, reducing false positives.</p>
+          </app-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works-section">
+    <div class="app-container">
+      <h2 class="section-title">Three Steps to Secure</h2>
+      <div class="steps-container">
+        <div class="step">
+          <div class="step-badge">1</div>
+          <h3>Integrate the API</h3>
+          <p>Sign up, generate an API key, and use our client libraries to connect your app.</p>
         </div>
-      </ion-col>
-      <ion-col size="12" size-md="6" class="hero-image">
-        <ion-img src="assets/shapes.svg" alt="Fraud AI Illustration"></ion-img>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        <div class="step-separator"></div>
+        <div class="step">
+          <div class="step-badge">2</div>
+          <h3>Send Us Events</h3>
+          <p>Send user or transaction data to our secure endpoints for real-time analysis.</p>
+        </div>
+        <div class="step-separator"></div>
+        <div class="step">
+          <div class="step-badge">3</div>
+          <h3>Act on Scores</h3>
+          <p>Receive a risk score and detailed insights to block, flag, or approve events automatically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="app-container footer-content">
+      <div class="footer-brand">
+        <span class="logo-icon" aria-hidden="true">⚡</span>
+        <span>FraudAI</span>
+      </div>
+      <div class="footer-links">
+        <a routerLink="/docs">Docs</a>
+        <a routerLink="/playground">Playground</a>
+        <a href="https://example.com/terms" target="_blank" rel="noopener noreferrer">Terms</a>
+        <a href="https://example.com/privacy" target="_blank" rel="noopener noreferrer">Privacy</a>
+      </div>
+      <div class="footer-copy">
+        &copy; 2025 FraudAI, Inc. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
 </ion-content>

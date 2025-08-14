@@ -3,9 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
-  IonGrid,
-  IonRow,
-  IonCol,
   IonSegment,
   IonSegmentButton,
 } from '@ionic/angular/standalone';
@@ -16,6 +13,7 @@ import { CodeBlockComponent } from 'src/app/shared/components/code-block/code-bl
 import { Subscription } from 'rxjs';
 import { Model } from 'src/app/core/models/model.model';
 import { environment } from 'src/environments/environment';
+import { CalloutComponent } from 'src/app/shared/components/callout/callout.component';
 
 @Component({
   selector: 'app-docs',
@@ -26,17 +24,23 @@ import { environment } from 'src/environments/environment';
     CommonModule,
     FormsModule,
     IonContent,
-    IonGrid,
-    IonRow,
-    IonCol,
     IonSegment,
     IonSegmentButton,
     CodeBlockComponent,
+    CalloutComponent,
   ],
 })
 export class DocsPage implements OnDestroy {
   public modelSelectorService = inject(ModelSelectorService);
   public apiKeyService = inject(ApiKeyService);
+
+  public sections = [
+    { id: 'introduction', title: 'Introduction' },
+    { id: 'authentication', title: 'Authentication' },
+    { id: 'api-reference', title: 'API Reference' },
+    { id: 'errors', title: 'Errors' },
+    { id: 'sdk-libs', title: 'SDKs & Libraries' },
+  ];
 
   public curlSnippet = '';
   public fetchSnippet = '';

@@ -1,0 +1,29 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle {
+  background: transparent;
+  border: 1px solid transparent;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: hsl(var(--text-1-hsl));
+  transition: color 0.2s ease, background-color 0.2s ease;
+
+  &:hover {
+    color: hsl(var(--text-0-hsl));
+    background-color: hsl(var(--surface-2-hsl));
+  }
+
+  ion-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+}
