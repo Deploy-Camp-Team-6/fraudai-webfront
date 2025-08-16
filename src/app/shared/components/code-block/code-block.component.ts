@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, OnChanges, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, AfterViewInit, OnChanges, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CopyButtonComponent } from '../copy-button/copy-button.component';
 import hljs from 'highlight.js/lib/core';
@@ -17,24 +17,32 @@ hljs.registerLanguage('python', python);
   standalone: true,
   imports: [CommonModule, CopyButtonComponent],
 })
-export class CodeBlockComponent implements AfterViewInit, OnChanges {
+export class CodeBlockComponent implements AfterViewInit, OnChanges, AfterViewChecked {
   @Input() code = '';
   @Input() language = 'typescript';
   @ViewChild('codeElement') codeElement?: ElementRef<HTMLElement>;
 
+  private needsHighlight = false;
+
   ngAfterViewInit() {
-    this.highlight();
+    this.needsHighlight = true;
   }
 
   ngOnChanges() {
-    this.highlight();
+    this.needsHighlight = true;
+  }
+
+  ngAfterViewChecked() {
+    if (this.needsHighlight) {
+      this.highlight();
+      this.needsHighlight = false;
+    }
   }
 
   private highlight() {
-    setTimeout(() => {
-      if (this.codeElement) {
-        hljs.highlightElement(this.codeElement.nativeElement);
-      }
-    });
+    if (this.codeElement) {
+      this.codeElement.nativeElement.textContent = this.code;
+      hljs.highlightElement(this.codeElement.nativeElement);
+    }
   }
 }

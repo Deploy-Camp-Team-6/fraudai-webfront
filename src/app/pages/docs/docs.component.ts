@@ -70,6 +70,10 @@ export class DocsPage implements OnDestroy {
 
     generateSnippets(model: Model | null, apiKey: string | null) {
       if (!model) {
+        const placeholder = 'Select a model to generate code snippet.';
+        this.curlSnippet = placeholder;
+        this.fetchSnippet = placeholder;
+        this.pythonSnippet = placeholder;
         return;
       }
       const endpoint = 'https://api.fraudai.cloud/v1/inference/predict';
