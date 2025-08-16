@@ -1,13 +1,13 @@
 <ion-content [fullscreen]="true">
   <div class="docs-container app-container">
     <!-- Sidebar -->
-    <nav class="docs-sidebar">
-      <ul class="sidebar-nav-list">
-        <li *ngFor="let section of sections">
-          <a [href]="'#' + section.id" class="sidebar-link">{{ section.title }}</a>
-        </li>
-      </ul>
-    </nav>
+      <nav class="docs-sidebar">
+        <ul class="sidebar-nav-list">
+          <li *ngFor="let section of sections">
+            <a class="sidebar-link" (click)="scrollToSection(section.id)">{{ section.title }}</a>
+          </li>
+        </ul>
+      </nav>
 
     <!-- Main Content -->
     <article class="docs-content">

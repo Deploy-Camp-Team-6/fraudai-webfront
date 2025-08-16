@@ -69,11 +69,18 @@ export class DocsPage implements OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-    generateSnippets(apiKey: string | null) {
-      const model = this.exampleModel;
-      const endpoint = 'https://api.fraudai.cloud/v1/inference/predict';
-      const headers = {
-        'Content-Type': 'application/json',
+  scrollToSection(id: string) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  generateSnippets(apiKey: string | null) {
+    const model = this.exampleModel;
+    const endpoint = 'https://api.fraudai.cloud/v1/inference/predict';
+    const headers = {
+      'Content-Type': 'application/json',
         'x-api-key': apiKey || 'YOUR_API_KEY',
       };
       const body = {
