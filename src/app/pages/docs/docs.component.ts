@@ -78,7 +78,7 @@ export class DocsPage implements OnDestroy {
 
   generateSnippets(apiKey: string | null) {
     const model = this.exampleModel;
-    const endpoint = 'https://api.fraudai.cloud/v1/inference/predict';
+    const endpoint = 'https://api.fraudai.cloud/v1/fraud/predict';
     const headers = {
       'Content-Type': 'application/json',
         'x-api-key': apiKey || 'YOUR_API_KEY',
