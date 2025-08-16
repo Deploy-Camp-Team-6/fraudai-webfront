@@ -1,0 +1,8 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow">
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="hsl(170 85% 40%)" />
+    </filter>
+  </defs>
+  <circle cx="16" cy="16" r="12" fill="hsl(170 85% 40%)" filter="url(#glow)" />
+</svg>
