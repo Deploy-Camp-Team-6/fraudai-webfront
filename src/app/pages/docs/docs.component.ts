@@ -7,12 +7,10 @@ import {
   IonSegmentButton,
 } from '@ionic/angular/standalone';
 import { SegmentValue } from '@ionic/angular';
-import { ModelSelectorService } from 'src/app/core/services/model-selector.service';
 import { ApiKeyService } from 'src/app/core/services/api-key.service';
 import { CodeBlockComponent } from 'src/app/shared/components/code-block/code-block.component';
 import { Subscription } from 'rxjs';
 import { Model } from 'src/app/core/models/model.model';
-import { environment } from 'src/environments/environment';
 import { CalloutComponent } from 'src/app/shared/components/callout/callout.component';
 
 @Component({
@@ -31,8 +29,17 @@ import { CalloutComponent } from 'src/app/shared/components/callout/callout.comp
   ],
 })
 export class DocsPage implements OnDestroy {
-  public modelSelectorService = inject(ModelSelectorService);
   public apiKeyService = inject(ApiKeyService);
+
+  private readonly exampleModel: Model = {
+    id: 'example-fraud-model',
+    model_type: 'xgboost',
+    name: 'Example Fraud Model',
+    version: '1.0.0',
+    stage: 'production',
+    run_id: 'example-run-id',
+    signature_inputs: ['transaction_id', 'amount', 'merchant_type', 'device_type'],
+  };
 
   public sections = [
     { id: 'introduction', title: 'Introduction' },
@@ -50,16 +57,10 @@ export class DocsPage implements OnDestroy {
   private subscriptions = new Subscription();
 
   constructor() {
-    this.subscriptions.add(
-      this.modelSelectorService.selectedModel$.subscribe(model => {
-        if (model) {
-          this.generateSnippets(model, this.apiKeyService.getApiKey());
-        }
-      })
-    );
+    this.generateSnippets(this.apiKeyService.getApiKey());
     this.subscriptions.add(
       this.apiKeyService.isApiKeyActive$.subscribe(() => {
-        this.generateSnippets(this.modelSelectorService.getSelectedModel(), this.apiKeyService.getApiKey());
+        this.generateSnippets(this.apiKeyService.getApiKey());
       })
     );
   }
@@ -68,14 +69,8 @@ export class DocsPage implements OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-    generateSnippets(model: Model | null, apiKey: string | null) {
-      if (!model) {
-        const placeholder = 'Select a model to generate code snippet.';
-        this.curlSnippet = placeholder;
-        this.fetchSnippet = placeholder;
-        this.pythonSnippet = placeholder;
-        return;
-      }
+    generateSnippets(apiKey: string | null) {
+      const model = this.exampleModel;
       const endpoint = 'https://api.fraudai.cloud/v1/inference/predict';
       const headers = {
         'Content-Type': 'application/json',
