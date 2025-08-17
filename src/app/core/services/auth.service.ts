@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap, catchError, switchMap } from 'rxjs/operators';
-import { BehaviorSubject, Observable, of, throwError, from } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError, from, lastValueFrom } from 'rxjs';
 import { User } from '../models/user.model';
 import { AuthResponse } from '../models/auth-response.model';
 import { environment } from '../../../environments/environment';
@@ -15,6 +15,8 @@ export class AuthService {
   private http = inject(HttpClient);
   private userSubject = new BehaviorSubject<User | null>(null);
   public user$ = this.userSubject.asObservable();
+  private initializedSubject = new BehaviorSubject<boolean>(false);
+  public initialized$ = this.initializedSubject.asObservable();
 
   constructor() {
     this.loadInitialUser();
@@ -24,10 +26,12 @@ export class AuthService {
     try {
       const { value } = await SecureStoragePlugin.get({ key: STORAGE_KEYS.AUTH_TOKEN });
       if (value) {
-        this.me().subscribe();
+        await lastValueFrom(this.me());
       }
     } catch {
       // ignore missing token
+    } finally {
+      this.initializedSubject.next(true);
     }
   }
 
